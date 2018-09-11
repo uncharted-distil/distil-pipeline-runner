@@ -4,25 +4,24 @@ A light weight pipeline execution engine focused on primitives used by Distil fo
 
 ## Installation
 
-Prequisites:
-
-1. Python 3.5+ - https://www.python.org/downloads
-1. Pipenv - https://github.com/pypa/pipenv
-
-From the project root, download dependencies and activate the environment:
+Setup and activate virtual environment:
 
 ```bash
-pipenv install
+python3 -m venv <path_to_venv>
+source <path_to_venv>/bin/activate
 ```
 
-*Note: pipenv is SLOW - you'll have to wait a few minutes for it to run*
+From the project root, install dependencies:
+
+```bash
+pip3 install -r requirements.txt
+```
 
 This will install a basic set of D3M primitives - those from the `common_primitves` repo, and the NK PCA Features primitive.
 
 To run a test pipeline:
 
 ```shell
-pipenv shell
 cd distil-pipeline-runner
 python3 proto_runner.py ../test/create_pca_features.pln file:///home/chris/data/d3m/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
 ```
@@ -30,7 +29,7 @@ python3 proto_runner.py ../test/create_pca_features.pln file:///home/chris/data/
 Additional primitives can be installed manually. Example:
 
 ```shell
-pipenv install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git#egg=PcafeaturesD3MWrapper
+pip install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git#egg=SimonD3MWrapper
 ```
 
 ### Building GRPC/proto files
