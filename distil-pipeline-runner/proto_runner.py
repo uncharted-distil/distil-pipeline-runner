@@ -1,6 +1,7 @@
 #!/bin/bash
 
 import time
+import os
 from typing import List, Dict, Any
 from concurrent import futures
 
@@ -22,10 +23,8 @@ def resolve_output(dataref: str) -> List[Dict[str, Any]]:
     dataref_parts = dataref.split(".")
     if dataref_parts[0] == 'inputs':
         return input_table[int(dataref_parts[1])]
-
     if dataref_parts[0] == 'steps':
         return output_table[int(dataref_parts[1])][dataref_parts[2]]
-
     return []
 
 def get_input(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep) -> List[Dict[str, Any]]:
@@ -39,7 +38,15 @@ def get_hyperparameters(primitive_step: pipeline_pb2.PrimitivePipelineDescriptio
     primitive_hyperparams_class = primitive_class.metadata.query()['primitive_code']['class_type_arguments']['Hyperparams']
     return primitive_hyperparams_class.defaults()
 
-def execute_pipeline(pipeline) -> Any:
+def get_static_resources(primitive_class: frozendict.FrozenOrderedDict, static_res_path: str) -> Dict[str, str]:
+    # create a table of static resource paths for this primitive if specified
+    volumes = {}
+    for installation in primitive_class.metadata.query()['installation']:
+        if installation['type'] is 'TGZ':
+            volumes[installation['key']] = os.path.join(static_res_path, installation['key'])
+    return volumes
+
+def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription, static_res_path: str) -> Any:
     steps = pipeline.steps
     for step in steps:
         # load the primitive class
@@ -47,12 +54,15 @@ def execute_pipeline(pipeline) -> Any:
         module = importlib.import_module(path)
         primitive_class = getattr(module, name)
 
+        # get the static resource table, hyperparams, and instantiate the primitive
+        static_resources = get_static_resources(primitive_class, static_res_path)
         hyperparams = get_hyperparameters(step.primitive, primitive_class)
-        primitive = primitive_class(hyperparams=hyperparams)
+        primitive = primitive_class(hyperparams=hyperparams, volumes=static_resources)
 
         # reflectively call each output method using the hyperparams
         for output in step.primitive.outputs:
             input_data = get_input(step.primitive)
+
             result = getattr(primitive, output.id)(inputs=input_data).value
             output_table.append({output.id: result})
 
@@ -70,17 +80,19 @@ def load_pipeline(filename: str) -> pipeline_pb2.PipelineDescription:
 def main():
     pipeline_filename = sys.argv[1]
     dataset_filename = sys.argv[2]
+    static_resource_path = sys.argv[3]
 
+    # load the protobuf pipeline def
     pipeline = load_pipeline(pipeline_filename)
-    input_dataset = container.Dataset.load(dataset_filename)
 
+    # load the input dataset
+    input_dataset = container.Dataset.load(dataset_filename)
     input_table.append(input_dataset)
 
-    output = execute_pipeline(pipeline)
+    # execute the pipeline
+    output = execute_pipeline(pipeline, static_resource_path)
 
-    cols = input_dataset['0'].columns.values
-    for feature_idx in output['features']:
-        print(cols[int(feature_idx)])
+    print(output)
 
 if __name__ == "__main__":
     main()
