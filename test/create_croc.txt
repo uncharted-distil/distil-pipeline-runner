@@ -1,0 +1,54 @@
+steps {
+  primitive {
+    primitive {
+      id: "404fae2a-2f0a-4c9b-9ad2-fb1528990561"
+      version: "1.2.2"
+      python_path: "d3m.primitives.distil.croc"
+      name: "croc"
+      digest: "09cd99d609e317559feff580b8d893d0188f12915ab8d84a98de34eb344e340c"
+    }
+    arguments {
+      key: "inputs"
+      value {
+        container {
+          data: "steps.1.produce"
+        }
+      }
+    }
+    outputs {
+      id: "produce"
+    }
+    hyperparams {
+      key: "output_labels"
+      value {
+        value {
+          data {
+            raw {
+              list {
+                items {
+                  string: "objects"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    hyperparams {
+      key: "target_columns"
+      value {
+        value {
+          data {
+            raw {
+              list {
+                items {
+                  string: "filename"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

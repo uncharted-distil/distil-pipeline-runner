@@ -1,0 +1,30 @@
+*	croc_test2#test croc object detection pipelineJsteps.2.produceR”
+–
+™
+$f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.0#d3m.primitives.datasets.Denormalize"Denormalize datasets*@c39e3436373aed1944edbbc9b1cf24af5c71919d73bf0bb545cba0b685812df1
+inputs
+
+
+inputs.0	
+produceRÎ
+Ë
+ª
+$4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0*d3m.primitives.datasets.DatasetToDataFrame"Dataset to DataFrame converter*@85b946aa6123354fe51a288c3be56aaca82e76d4071c1edc13be6f9e0e100144
+inputs
+
+steps.0.produce	
+produceRè
+å
+ë
+$404fae2a-2f0a-4c9b-9ad2-fb15289905611.2.2d3m.primitives.distil.croc"croc*@09cd99d609e317559feff580b8d893d0188f12915ab8d84a98de34eb344e340c
+inputs
+
+steps.1.produce	
+produce"&
+target_columns"
+:
+
+*filename"$
+output_labels"
+:
+	*objects

@@ -2,18 +2,21 @@
 
 import time
 import os
+import sys
 from typing import List, Dict, Any
 from concurrent import futures
 
 import importlib
 import pipeline_pb2
 import pipeline_pb2_grpc
+import value_pb2
+import value_pb2_grpc
 
 from d3m import container
+from d3m.metadata import base as metadata_base
 
 import frozendict
 
-import sys
 
 input_table: List[container.Dataset] = []
 output_table: List[Dict[str, Any]] = []
@@ -34,9 +37,65 @@ def get_input(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep) -> 
     return resolve_output(dataref)
 
 def get_hyperparameters(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep, primitive_class: frozendict.FrozenOrderedDict) -> Any:
-    # parse out hyperparameter structures
+    # parse out hyperparameter structures and initialize with defaults
     primitive_hyperparams_class = primitive_class.metadata.query()['primitive_code']['class_type_arguments']['Hyperparams']
-    return primitive_hyperparams_class.defaults()
+    hyperparams = primitive_hyperparams_class.defaults()
+    new_hyperparams = dict(hyperparams)
+
+    # iterate over entries and add values to hyperparameter struct
+    for hyperparam_key, hyperparam_value in primitive_step.hyperparams.items():
+        if hyperparam_value.WhichOneof('argument') == 'value':
+            parsed_param = get_raw_hyperparameter(hyperparam_value.value.data.raw)
+            new_hyperparams[hyperparam_key] = parsed_param
+
+    return new_hyperparams
+
+def get_list_hyperparameter(list: value_pb2.ValueList) -> Any:
+    result_list = []
+    for value in list.items:
+        which_value = value.WhichOneof('raw')
+        if which_value == 'list':
+            result_list.append(get_list_hyperparameter(value.list))
+        elif which_value == 'dict':
+            result_list.append(get_dict_hyperparameter(value.dict))
+        else:
+            result_list.append(get_raw_hyperparameter(value))
+
+    return result_list
+
+def get_dict_hyperparameter(dict: value_pb2.ValueDict) -> Any:
+    result_dict: Dict[str, Any] = {}
+    for key, value in dict.items.items():
+        which_value = value.WhichOneof('raw')
+        if which_value == 'list':
+            result_dict[key] = get_list_hyperparameter(value.list)
+        elif which_value == 'dict':
+            result_dict[key] = get_dict_hyperparameter(value.dict)
+        else:
+            result_dict[key] = get_raw_hyperparameter(value)
+
+    return result_dict
+
+def get_raw_hyperparameter(value: value_pb2.ValueRaw) -> Any:
+    which_value = value.WhichOneof('raw')
+    if which_value == 'null':
+        return value.null
+    if which_value == 'double':
+        return value.double
+    if which_value == 'int64':
+        return value.int64
+    if which_value == 'bool':
+        return value.bool
+    if which_value == 'string':
+        return value.string
+    if which_value == 'bytes':
+        return value.bytes
+    if which_value == 'list':
+        return get_list_hyperparameter(value.list)
+    if which_value == 'dict':
+        return get_dict_hyperparameter(value.dict)
+
+    return None
 
 def get_static_resources(primitive_class: frozendict.FrozenOrderedDict, static_res_path: str) -> Dict[str, str]:
     # create a table of static resource paths for this primitive if specified
@@ -57,13 +116,19 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription, static_res_path
         # get the static resource table, hyperparams, and instantiate the primitive
         static_resources = get_static_resources(primitive_class, static_res_path)
         hyperparams = get_hyperparameters(step.primitive, primitive_class)
-        primitive = primitive_class(hyperparams=hyperparams, volumes=static_resources)
+
+        primitive = None
+        if static_res_path:
+            primitive = primitive_class(hyperparams=hyperparams, volumes=static_resources)
+        else:
+            primitive = primitive_class(hyperparams=hyperparams)
 
         # reflectively call each output method using the hyperparams
         for output in step.primitive.outputs:
             input_data = get_input(step.primitive)
 
             result = getattr(primitive, output.id)(inputs=input_data).value
+
             output_table.append({output.id: result})
 
     # extract the final output
@@ -78,9 +143,16 @@ def load_pipeline(filename: str) -> pipeline_pb2.PipelineDescription:
     return pipeline
 
 def main():
+    # path to pipeline file
     pipeline_filename = sys.argv[1]
+
+    # path to dataset
     dataset_filename = sys.argv[2]
-    static_resource_path = sys.argv[3]
+
+    # optional resource path
+    static_resource_path = None
+    if len(sys.argv) >= 4:
+        static_resource_path = sys.argv[3]
 
     # load the protobuf pipeline def
     pipeline = load_pipeline(pipeline_filename)

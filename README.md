@@ -14,7 +14,7 @@ source <path_to_venv>/bin/activate
 From the project root, install dependencies:
 
 ```bash
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt --process-dependency-links
 ```
 
 This will install a basic set of D3M primitives - those from the `common_primitves` repo, and the NK PCA Features primitive.
@@ -23,10 +23,10 @@ To run a test pipeline:
 
 ```shell
 cd distil-pipeline-runner
-python3 proto_runner.py ../test/create_pca_features.pln file:///home/chris/data/d3m/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
+python3 proto_runner.py ../test/create_pca_features.pln file:///<path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
 ```
 
-Additional primitives can be installed manually. Example:
+Additional primitives can be installed manually as needed. Example:
 
 ```shell
 pip install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git#egg=SimonD3MWrapper
