@@ -22,14 +22,14 @@ This will install a basic set of D3M primitives - those from the `common_primitv
 To run a test pipeline:
 
 ```shell
-cd distil-pipeline-runner
-python3 proto_runner.py ../test/create_pca_features.pln file:///<path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
+cd pipelinerunner
+python3 run_pipeline.py ../test/create_pca_features.pln file:///<path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
 ```
 
 Additional primitives can be installed manually as needed. Example:
 
 ```shell
-pip install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git#egg=SimonD3MWrapper
+pip3 install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git#egg=SimonD3MWrapper --process-dependency-links
 ```
 
 ### Building GRPC/proto files
@@ -45,5 +45,5 @@ pip3 install mypy-protobuf
 Generate the protobuf files and MyPy type definitions for them:
 
 ```shell
-python3 -m grpc_tools.protoc -I./proto --python_out=. --grpc_python_out=./proto --mypy_out=. ./proto/*.proto
+python3 -m grpc_tools.protoc -I./proto --python_out=./pipelinerunner --grpc_python_out=./pipelinerunner --mypy_out=./pipelinerunner ./proto/*.proto
 ```
