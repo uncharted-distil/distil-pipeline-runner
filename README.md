@@ -4,11 +4,22 @@ A light weight pipeline execution engine focused on primitives used by Distil fo
 
 ## Installation
 
+Install python
+
+```bash
+sudo apt install build-essential libssl-dev libffi-dev python3-dev python3-pip python3-venv
+```
+
 Setup and activate virtual environment:
 
 ```bash
 python3 -m venv <path_to_venv>
 source <path_to_venv>/bin/activate
+```
+
+Install wheel
+```bashM
+pip3 install wheel
 ```
 
 From the project root, install dependencies:
@@ -23,7 +34,7 @@ To run a test pipeline:
 
 ```shell
 cd pipelinerunner
-python3 run_pipeline.py ../test/create_pca_features.pln file:///<path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
+python3 run_pipeline.py ../test/create_pca_features.pln file:///<absolute_path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
 ```
 
 Additional primitives can be installed manually as needed. Example:
