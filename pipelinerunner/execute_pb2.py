@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='execute.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\rexecute.proto\x1a\x0epipeline.proto\x1a\x0bvalue.proto\"c\n\x16PipelineExecuteRequest\x12\x31\n\x13pipelineDescription\x18\x01 \x01(\x0b\x32\x14.PipelineDescription\x12\x16\n\x06inputs\x18\x02 \x03(\x0b\x32\x06.Value\"\x19\n\x17PipelineExecuteResponse2R\n\x08\x45xecutor\x12\x46\n\x0f\x45xecutePipeline\x12\x17.PipelineExecuteRequest\x1a\x18.PipelineExecuteResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rexecute.proto\x1a\x0epipeline.proto\x1a\x0bvalue.proto\"c\n\x16PipelineExecuteRequest\x12\x31\n\x13pipelineDescription\x18\x01 \x01(\x0b\x32\x14.PipelineDescription\x12\x16\n\x06inputs\x18\x02 \x03(\x0b\x32\x06.Value\",\n\x17PipelineExecuteResponse\x12\x11\n\tresultURI\x18\x01 \x01(\t2R\n\x08\x45xecutor\x12\x46\n\x0f\x45xecutePipeline\x12\x17.PipelineExecuteRequest\x1a\x18.PipelineExecuteResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[pipeline__pb2.DESCRIPTOR,value__pb2.DESCRIPTOR,])
 
@@ -73,6 +73,13 @@ _PIPELINEEXECUTERESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='resultURI', full_name='PipelineExecuteResponse.resultURI', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -86,7 +93,7 @@ _PIPELINEEXECUTERESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=147,
-  serialized_end=172,
+  serialized_end=191,
 )
 
 _PIPELINEEXECUTEREQUEST.fields_by_name['pipelineDescription'].message_type = pipeline__pb2._PIPELINEDESCRIPTION
@@ -117,8 +124,8 @@ _EXECUTOR = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=174,
-  serialized_end=256,
+  serialized_start=193,
+  serialized_end=275,
   methods=[
   _descriptor.MethodDescriptor(
     name='ExecutePipeline',

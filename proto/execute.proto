@@ -8,7 +8,9 @@ message PipelineExecuteRequest {
     repeated Value inputs = 2;
 }
 
-message PipelineExecuteResponse {}
+message PipelineExecuteResponse {
+    string resultURI = 1;
+}
 
 service Executor {
     rpc ExecutePipeline (PipelineExecuteRequest) returns (PipelineExecuteResponse) {}

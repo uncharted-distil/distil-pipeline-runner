@@ -21,6 +21,7 @@ from typing import (
     Callable as typing___Callable,
     Iterable as typing___Iterable,
     Optional as typing___Optional,
+    Text as typing___Text,
 )
 
 
@@ -42,8 +43,10 @@ class PipelineExecuteRequest(google___protobuf___message___Message):
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
 
 class PipelineExecuteResponse(google___protobuf___message___Message):
+    resultURI = ... # type: typing___Text
 
     def __init__(self,
+        resultURI : typing___Optional[typing___Text] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> PipelineExecuteResponse: ...
