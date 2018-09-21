@@ -18,8 +18,15 @@ source <path_to_venv>/bin/activate
 ```
 
 Install wheel
-```bashM
+
+```bash
 pip3 install wheel
+```
+Update pip3 and  setuptools
+
+```bash
+pip3 install --upgrade pip
+pip3 install --upgrade setuptools
 ```
 
 From the project root, install dependencies:
