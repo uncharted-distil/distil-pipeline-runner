@@ -16,8 +16,10 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
     def ExecutePipeline(self, request, context):
         print("Executing pipeline", request)
 
+        static_res_path = os.environ['STATIC_RESOURCE_PATH']
+
         # execute the pipeline against the data
-        output = pe.execute_pipeline(request.pipelineDescription, request.inputs[0].dataset_uri)
+        output = pe.execute_pipeline(request.pipelineDescription, request.inputs[0].dataset_uri, static_res_path)
 
         # get output dir
         output_path = self.get_output_path()

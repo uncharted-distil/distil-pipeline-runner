@@ -18,7 +18,7 @@ source <path_to_venv>/bin/activate
 ```
 
 Install wheel
-```bashM
+```bash
 pip3 install wheel
 ```
 
