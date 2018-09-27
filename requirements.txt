@@ -36,6 +36,11 @@ opencv-python-headless==3.4.3.18
 pandas==0.22.0
 patsy==0.5.0
 -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@5ec8cf9d0288bc1f581e7e44f1b61ce73ceaeefd#egg=PcafeaturesD3MWrapper
+-e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@8845285e63116ca6ac814b7ef6d7af696447e305#egg=SimonD3MWrapper
+-e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@ed6db7a8f517476dda5ae96bc094583229a9bdd4#egg=DukeD3MWrapper
+-e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@7318a8354cbc6f336e08f26c14e6b372d7b5a10c#egg=UnicornD3MWrapper
+-e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@273160207201cead0da9c327cb59a3f1507207ce#egg=SlothD3MWrapper
+-e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@8f01cea82898e4bca72a39a145c09c1ffd424495#egg=CrocD3MWrapper
 Pillow==5.2.0
 ply==3.11
 protobuf==3.6.1

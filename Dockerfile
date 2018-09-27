@@ -9,6 +9,7 @@ RUN apt-get install -y libleptonica-dev
 RUN wget https://github.com/tesseract-ocr/tesseract/archive/3.04.01.tar.gz && tar -zxf 3.04.01.tar.gz && cd tesseract-3.04.01 && ./autogen.sh && ./configure && make && make install && cd ../..
 
 RUN pip3 install --upgrade pip
+RUN pip3 install --upgrade setuptools
 RUN pip3 install wheel
 RUN pip3 install grpcio
 RUN pip3 install grpcio-tools googleapis-common-protos
