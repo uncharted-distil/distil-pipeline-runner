@@ -98,15 +98,15 @@ def _get_raw_hyperparameter(value: value_pb2.ValueRaw) -> Any:
 
 def _get_static_resources(primitive_class: frozendict.FrozenOrderedDict, static_res_path: str) -> Dict[str, str]:
     # create a table of static resource paths for this primitive if specified
-    volumes = {}
     for installation in primitive_class.metadata.query()['installation']:
         if installation['type'] is 'TGZ':
+            volumes = {}
             if static_res_path:
                 volumes[installation['key']] = os.path.join(static_res_path, installation['key'])
             else:
                 volumes[installation['key']] = installation['key']
-
-    return volumes
+            return volumes
+    return None
 
 def _load_pipeline(filename: str) -> pipeline_pb2.PipelineDescription:
     f = open(filename, "rb")
@@ -145,7 +145,7 @@ def execute_pipeline(pipeline, dataset_filename, static_resource_path = None) ->
         hyperparams = _get_hyperparameters(step.primitive, primitive_class)
 
         primitive = None
-        if static_resource_path:
+        if static_resources:
             primitive = primitive_class(hyperparams=hyperparams, volumes=static_resources)
         else:
             primitive = primitive_class(hyperparams=hyperparams)

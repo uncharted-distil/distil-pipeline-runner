@@ -16,18 +16,16 @@ RUN pip3 install mypy-protobuf
 RUN pip3 install tensorflow
 
 COPY requirements.txt ./requirements.txt
+
+RUN pip3 install -r requirements.txt --process-dependency-links
+
 COPY pipelinerunner ./pipelinerunner
 COPY proto ./proto
 
 RUN python3 -m grpc_tools.protoc -I./proto --python_out=./pipelinerunner --grpc_python_out=./pipelinerunner --mypy_out=./pipelinerunner ./proto/*.proto
 
-RUN pip3 install -r requirements.txt --process-dependency-links
-
-RUN mkdir -p /usr/local/d3m/outputs
-RUN mkdir -p /usr/local/d3m/static_resources
-
-ENV D3MOUTPUTDIR=/home/kbirk/workspace/distil-pipeline-runner/outputs
-ENV STATIC_RESOURCE_PATH=/home/kbirk/workspace/distil-pipeline-runner/static_resources
+ENV D3MOUTPUTDIR=/usr/local/d3m/output
+ENV STATIC_RESOURCE_PATH=/usr/local/d3m/static_resources
 
 EXPOSE 50051
 
