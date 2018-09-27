@@ -37,7 +37,6 @@ pandas==0.22.0
 patsy==0.5.0
 -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@5ec8cf9d0288bc1f581e7e44f1b61ce73ceaeefd#egg=PcafeaturesD3MWrapper
 Pillow==5.2.0
-pkg-resources==0.0.0
 ply==3.11
 protobuf==3.6.1
 punk==3.0.0
