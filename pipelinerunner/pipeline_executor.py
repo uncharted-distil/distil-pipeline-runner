@@ -17,8 +17,8 @@ from d3m.metadata import base as metadata_base
 import frozendict
 
 
-_input_table: List[container.Dataset] = []
-_output_table: List[Dict[str, Any]] = []
+_input_table: List[container.Dataset]
+_output_table: List[Dict[str, Any]]
 
 def _resolve_output(dataref: str) -> List[Dict[str, Any]]:
     # on inputs use the input dataset, on subsequent
@@ -128,6 +128,9 @@ def execute_pipeline(pipeline, dataset_filename, static_resource_path = None) ->
     -------
     The result of the pipeline execution.
     """
+
+    _input_table = []
+    _output_table = []
 
     # load the input dataset
     input_dataset = container.Dataset.load(dataset_filename)
