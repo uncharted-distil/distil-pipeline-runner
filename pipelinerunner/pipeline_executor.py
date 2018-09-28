@@ -16,9 +16,8 @@ from d3m.metadata import base as metadata_base
 
 import frozendict
 
-
-_input_table: List[container.Dataset]
-_output_table: List[Dict[str, Any]]
+_input_table: List[container.Dataset] = []
+_output_table: List[Dict[str, Any]] = []
 
 def _resolve_output(dataref: str) -> List[Dict[str, Any]]:
     # on inputs use the input dataset, on subsequent
@@ -129,8 +128,8 @@ def execute_pipeline(pipeline, dataset_filename, static_resource_path = None) ->
     The result of the pipeline execution.
     """
 
-    _input_table = []
-    _output_table = []
+    _input_table.clear()
+    _output_table.clear()
 
     # load the input dataset
     input_dataset = container.Dataset.load(dataset_filename)
@@ -180,6 +179,10 @@ def execute_pipeline_file(pipeline_filename, dataset_filename, static_resource_p
     -------
     The result of the pipeline execution.
     """
+
+    _input_table.clear()
+    _output_table.clear()
+
     # load the protobuf pipeline def
     pipeline = _load_pipeline(pipeline_filename)
 
