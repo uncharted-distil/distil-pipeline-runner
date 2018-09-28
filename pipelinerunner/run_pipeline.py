@@ -15,5 +15,5 @@ if __name__ == "__main__":
         static_resource_path = sys.argv[3]
 
     # execute the pipeline against the data
-    output = pe.execute_pipeline(pipeline_filename, dataset_filename, static_resource_path)
+    output = pe.execute_pipeline_file(pipeline_filename, dataset_filename, static_resource_path)
     print(output)
