@@ -16,7 +16,6 @@ from d3m.metadata import base as metadata_base
 
 import frozendict
 
-
 _input_table: List[container.Dataset] = []
 _output_table: List[Dict[str, Any]] = []
 
@@ -98,11 +97,15 @@ def _get_raw_hyperparameter(value: value_pb2.ValueRaw) -> Any:
 
 def _get_static_resources(primitive_class: frozendict.FrozenOrderedDict, static_res_path: str) -> Dict[str, str]:
     # create a table of static resource paths for this primitive if specified
-    volumes = {}
     for installation in primitive_class.metadata.query()['installation']:
         if installation['type'] is 'TGZ':
-            volumes[installation['key']] = os.path.join(static_res_path, installation['key'])
-    return volumes
+            volumes = {}
+            if static_res_path:
+                volumes[installation['key']] = os.path.join(static_res_path, installation['key'])
+            else:
+                volumes[installation['key']] = installation['key']
+            return volumes
+    return None
 
 def _load_pipeline(filename: str) -> pipeline_pb2.PipelineDescription:
     f = open(filename, "rb")
@@ -111,7 +114,59 @@ def _load_pipeline(filename: str) -> pipeline_pb2.PipelineDescription:
     f.close()
     return pipeline
 
-def execute_pipeline(pipeline_filename, dataset_filename, static_resource_path = None) -> Any:
+def execute_pipeline(pipeline, dataset_filename, static_resource_path = None) -> Any:
+    """
+        Executes a binrary protobuf pipeline against a supplied d3m dataset.
+
+    Parameters
+    ----------
+    pipeline: protobuf pipeline definition
+    dataset_filename: path to folder containing a D3M dataset
+
+    Returns
+    -------
+    The result of the pipeline execution.
+    """
+
+    _input_table.clear()
+    _output_table.clear()
+
+    # load the input dataset
+    input_dataset = container.Dataset.load(dataset_filename)
+    _input_table.append(input_dataset)
+
+    steps = pipeline.steps
+    for step in steps:
+        # load the primitive class
+        path, name = step.primitive.primitive.python_path.rsplit('.', 1)
+        module = importlib.import_module(path)
+        primitive_class = getattr(module, name)
+
+        # get the static resource table, hyperparams, and instantiate the primitive
+        static_resources = _get_static_resources(primitive_class, static_resource_path)
+        hyperparams = _get_hyperparameters(step.primitive, primitive_class)
+
+        primitive = None
+        if static_resources:
+            primitive = primitive_class(hyperparams=hyperparams, volumes=static_resources)
+        else:
+            primitive = primitive_class(hyperparams=hyperparams)
+
+        # reflectively call each output method using the hyperparams
+        for output in step.primitive.outputs:
+            input_data = _get_input(step.primitive)
+            result = getattr(primitive, output.id)(inputs=input_data)
+            if type(result) is str:
+                raise Exception(result)
+            else:
+                result = getattr(primitive, output.id)(inputs=input_data).value
+                _output_table.append({output.id: result})
+
+    # extract the final output
+    output_dataref = pipeline.outputs[0].data
+    return _resolve_output(output_dataref)
+
+def execute_pipeline_file(pipeline_filename, dataset_filename, static_resource_path = None) -> Any:
     """
         Executes a binrary protobuf pipeline against a supplied d3m dataset.
 
@@ -124,6 +179,10 @@ def execute_pipeline(pipeline_filename, dataset_filename, static_resource_path =
     -------
     The result of the pipeline execution.
     """
+
+    _input_table.clear()
+    _output_table.clear()
+
     # load the protobuf pipeline def
     pipeline = _load_pipeline(pipeline_filename)
 

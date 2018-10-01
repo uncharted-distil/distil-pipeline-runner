@@ -22,7 +22,7 @@ Install wheel
 ```bash
 pip3 install wheel
 ```
-Update pip3 and  setuptools
+Update pip3 and setuptools
 
 ```bash
 pip3 install --upgrade pip
