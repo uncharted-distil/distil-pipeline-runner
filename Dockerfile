@@ -15,6 +15,7 @@ RUN pip3 install grpcio
 RUN pip3 install grpcio-tools googleapis-common-protos
 RUN pip3 install mypy-protobuf
 RUN pip3 install tensorflow
+RUN pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_md-2.0.0/en_core_web_md-2.0.0.tar.gz
 
 COPY requirements.txt ./requirements.txt
 
