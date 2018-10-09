@@ -28,6 +28,7 @@ RUN python3 -m grpc_tools.protoc -I./proto --python_out=./pipelinerunner --grpc_
 ENV D3MOUTPUTDIR=/usr/local/d3m/output
 ENV STATIC_RESOURCE_PATH=/usr/local/d3m/static_resources
 ENV PYTHONUNBUFFERED 1
+ENV LD_LIBRARY_PATH=/usr/local/lib
 
 EXPOSE 50051
 
