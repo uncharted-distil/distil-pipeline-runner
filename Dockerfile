@@ -6,7 +6,20 @@ RUN apt-get install -y build-essential libssl-dev libcurl4-openssl-dev libffi-de
 
 RUN apt-get install -y libleptonica-dev
 
-RUN wget https://github.com/tesseract-ocr/tesseract/archive/3.04.01.tar.gz && tar -zxf 3.04.01.tar.gz && cd tesseract-3.04.01 && ./autogen.sh && ./configure && make && make install && cd ../..
+# build tesseract ocr 3.04.01 from source since its not in the 18.04 repository
+RUN wget https://github.com/tesseract-ocr/tesseract/archive/3.04.01.tar.gz && \
+    tar -zxf 3.04.01.tar.gz && \
+    cd tesseract-3.04.01 && \
+    ./autogen.sh && \
+    ./configure && \
+    make && \
+    make install && \
+    cd ../..
+
+# manually copy the the tesseract ocr 3.04.01 english language package since its not in the 18.04 repository
+RUN wget http://archive.ubuntu.com/ubuntu/pool/universe/t/tesseract-eng/tesseract-eng_3.04.00.orig.tar.gz && \
+    tar -xvf tesseract-eng_3.04.00.orig.tar.gz && \
+    cp tesserct-ocr-eng/tessdata/* tesseract-3.04.01/tessdata
 
 RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
@@ -23,6 +36,7 @@ RUN pip3 install -r requirements.txt --process-dependency-links
 
 COPY pipelinerunner ./pipelinerunner
 COPY proto ./proto
+COPY test ./test
 
 RUN python3 -m grpc_tools.protoc -I./proto --python_out=./pipelinerunner --grpc_python_out=./pipelinerunner --mypy_out=./pipelinerunner ./proto/*.proto
 
@@ -30,6 +44,8 @@ ENV D3MOUTPUTDIR=/usr/local/d3m/output
 ENV STATIC_RESOURCE_PATH=/usr/local/d3m/static_resources
 ENV PYTHONUNBUFFERED 1
 ENV LD_LIBRARY_PATH=/usr/local/lib
+# point to the manually installed tesseract libs
+ENV TESSDATA_PREFIX=/tesseract-3.04.01/tessdata
 
 EXPOSE 50051
 

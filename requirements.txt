@@ -40,7 +40,7 @@ patsy==0.5.0
 -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@ed6db7a8f517476dda5ae96bc094583229a9bdd4#egg=DukeD3MWrapper --process-dependency-links
 -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@7318a8354cbc6f336e08f26c14e6b372d7b5a10c#egg=UnicornD3MWrapper --process-dependency-links
 -e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@273160207201cead0da9c327cb59a3f1507207ce#egg=SlothD3MWrapper --process-dependency-links
--e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@8f01cea82898e4bca72a39a145c09c1ffd424495#egg=CrocD3MWrapper --process-dependency-links
+-e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@8792895d31b2f7e45564cbae275871562a27d28b#egg=CrocD3MWrapper --process-dependency-links
 Pillow==5.2.0
 ply==3.11
 protobuf==3.6.1
