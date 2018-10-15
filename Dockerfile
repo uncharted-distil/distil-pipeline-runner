@@ -4,22 +4,7 @@ RUN apt-get update
 
 RUN apt-get install -y build-essential libssl-dev libcurl4-openssl-dev libffi-dev python3-dev python3-pip python3-venv git wget cmake autoconf automake libtool pkg-config libpng-dev libjpeg8-dev libtiff5-dev zlib1g-dev
 
-RUN apt-get install -y libleptonica-dev
-
-# build tesseract ocr 3.04.01 from source since its not in the 18.04 repository
-RUN wget https://github.com/tesseract-ocr/tesseract/archive/3.04.01.tar.gz && \
-    tar -zxf 3.04.01.tar.gz && \
-    cd tesseract-3.04.01 && \
-    ./autogen.sh && \
-    ./configure && \
-    make && \
-    make install && \
-    cd ../..
-
-# manually copy the the tesseract ocr 3.04.01 english language package since its not in the 18.04 repository
-RUN wget http://archive.ubuntu.com/ubuntu/pool/universe/t/tesseract-eng/tesseract-eng_3.04.00.orig.tar.gz && \
-    tar -xvf tesseract-eng_3.04.00.orig.tar.gz && \
-    cp tesserct-ocr-eng/tessdata/* tesseract-3.04.01/tessdata
+RUN apt-get install -y libleptonica-dev libtesseract-dev tesseract-ocr tesseract-ocr-eng
 
 RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
@@ -44,8 +29,6 @@ ENV D3MOUTPUTDIR=/usr/local/d3m/output
 ENV STATIC_RESOURCE_PATH=/usr/local/d3m/static_resources
 ENV PYTHONUNBUFFERED 1
 ENV LD_LIBRARY_PATH=/usr/local/lib
-# point to the manually installed tesseract libs
-ENV TESSDATA_PREFIX=/tesseract-3.04.01/tessdata
 
 EXPOSE 50051
 
