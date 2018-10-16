@@ -2,7 +2,7 @@
 
 import time
 import os
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from concurrent import futures
 
 import importlib
@@ -19,6 +19,7 @@ import frozendict
 _input_table: List[container.Dataset] = []
 _output_table: List[Dict[str, Any]] = []
 
+
 def _resolve_output(dataref: str) -> List[Dict[str, Any]]:
     # on inputs use the input dataset, on subsequent
     dataref_parts = dataref.split(".")
@@ -28,15 +29,19 @@ def _resolve_output(dataref: str) -> List[Dict[str, Any]]:
         return _output_table[int(dataref_parts[1])][dataref_parts[2]]
     return []
 
+
 def _get_input(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep) -> List[Dict[str, Any]]:
     # get the input data reference
     inputs = primitive_step.arguments['inputs']
     dataref = inputs.container.data
     return _resolve_output(dataref)
 
-def _get_hyperparameters(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep, primitive_class: frozendict.FrozenOrderedDict) -> Any:
+
+def _get_hyperparameters(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep,
+                         primitive_class: frozendict.FrozenOrderedDict) -> Any:
     # parse out hyperparameter structures and initialize with defaults
-    primitive_hyperparams_class = primitive_class.metadata.query()['primitive_code']['class_type_arguments']['Hyperparams']
+    primitive_hyperparams_class = \
+        primitive_class.metadata.query()['primitive_code']['class_type_arguments']['Hyperparams']
     hyperparams = primitive_hyperparams_class.defaults()
     new_hyperparams = dict(hyperparams)
 
@@ -47,6 +52,7 @@ def _get_hyperparameters(primitive_step: pipeline_pb2.PrimitivePipelineDescripti
             new_hyperparams[hyperparam_key] = parsed_param
 
     return new_hyperparams
+
 
 def _get_list_hyperparameter(list: value_pb2.ValueList) -> Any:
     result_list = []
@@ -61,6 +67,7 @@ def _get_list_hyperparameter(list: value_pb2.ValueList) -> Any:
 
     return result_list
 
+
 def _get_dict_hyperparameter(dict: value_pb2.ValueDict) -> Any:
     result_dict: Dict[str, Any] = {}
     for key, value in dict.items.items():
@@ -73,6 +80,7 @@ def _get_dict_hyperparameter(dict: value_pb2.ValueDict) -> Any:
             result_dict[key] = _get_raw_hyperparameter(value)
 
     return result_dict
+
 
 def _get_raw_hyperparameter(value: value_pb2.ValueRaw) -> Any:
     which_value = value.WhichOneof('raw')
@@ -95,7 +103,9 @@ def _get_raw_hyperparameter(value: value_pb2.ValueRaw) -> Any:
 
     return None
 
-def _get_static_resources(primitive_class: frozendict.FrozenOrderedDict, static_res_path: str) -> Dict[str, str]:
+
+def _get_static_resources(primitive_class: frozendict.FrozenOrderedDict,
+                          static_res_path: Optional[str]) -> Optional[Dict[str, str]]:
     # create a table of static resource paths for this primitive if specified
     for installation in primitive_class.metadata.query()['installation']:
         if installation['type'] is 'TGZ':
@@ -107,6 +117,7 @@ def _get_static_resources(primitive_class: frozendict.FrozenOrderedDict, static_
             return volumes
     return None
 
+
 def _load_pipeline(filename: str) -> pipeline_pb2.PipelineDescription:
     f = open(filename, "rb")
     pipeline = pipeline_pb2.PipelineDescription()
@@ -114,7 +125,10 @@ def _load_pipeline(filename: str) -> pipeline_pb2.PipelineDescription:
     f.close()
     return pipeline
 
-def execute_pipeline(pipeline, dataset_filename, static_resource_path = None) -> Any:
+
+def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
+                     dataset_filename: str,
+                     static_resource_path: Optional[str] = None) -> Any:
     """
         Executes a binrary protobuf pipeline against a supplied d3m dataset.
 
@@ -166,7 +180,8 @@ def execute_pipeline(pipeline, dataset_filename, static_resource_path = None) ->
     output_dataref = pipeline.outputs[0].data
     return _resolve_output(output_dataref)
 
-def execute_pipeline_file(pipeline_filename, dataset_filename, static_resource_path = None) -> Any:
+
+def execute_pipeline_file(pipeline_filename: str, dataset_filename: str, static_resource_path: str = None) -> Any:
     """
         Executes a binrary protobuf pipeline against a supplied d3m dataset.
 
