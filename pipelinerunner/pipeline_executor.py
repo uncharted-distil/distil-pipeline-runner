@@ -195,39 +195,6 @@ def execute_pipeline_file(pipeline_filename: str, dataset_filename: str, static_
     The result of the pipeline execution.
     """
 
-    _input_table.clear()
-    _output_table.clear()
-
     # load the protobuf pipeline def
     pipeline = _load_pipeline(pipeline_filename)
-
-    # load the input dataset
-    input_dataset = container.Dataset.load(dataset_filename)
-    _input_table.append(input_dataset)
-
-    steps = pipeline.steps
-    for step in steps:
-        # load the primitive class
-        path, name = step.primitive.primitive.python_path.rsplit('.', 1)
-        module = importlib.import_module(path)
-        primitive_class = getattr(module, name)
-
-        # get the static resource table, hyperparams, and instantiate the primitive
-        static_resources = _get_static_resources(primitive_class, static_resource_path)
-        hyperparams = _get_hyperparameters(step.primitive, primitive_class)
-
-        primitive = None
-        if static_resource_path:
-            primitive = primitive_class(hyperparams=hyperparams, volumes=static_resources)
-        else:
-            primitive = primitive_class(hyperparams=hyperparams)
-
-        # reflectively call each output method using the hyperparams
-        for output in step.primitive.outputs:
-            input_data = _get_input(step.primitive)
-            result = getattr(primitive, output.id)(inputs=input_data).value
-            _output_table.append({output.id: result})
-
-    # extract the final output
-    output_dataref = pipeline.outputs[0].data
-    return _resolve_output(output_dataref)
+    return execute_pipeline(pipeline, dataset_filename, static_resource_path)
