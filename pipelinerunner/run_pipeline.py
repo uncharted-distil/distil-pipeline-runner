@@ -3,7 +3,7 @@ import sys
 import pipeline_executor as pe
 
 if __name__ == "__main__":
-   # path to pipeline file
+    # path to pipeline file
     pipeline_filename = sys.argv[1]
 
     # path to dataset
