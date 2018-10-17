@@ -35,7 +35,7 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
         # return response with output path
         return execute_pb2.PipelineExecuteResponse(resultURI=output_path)
 
-    def write_output(self, output_path: str, output: pd.Dataframe) -> None:
+    def write_output(self, output_path: str, output: pd.DataFrame) -> None:
         directory = os.path.dirname(output_path)
         if not os.path.isdir(directory):
             os.makedirs(directory, exist_ok=True)
