@@ -173,8 +173,7 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
             if type(result) is str:
                 raise Exception(result)
             else:
-                result = getattr(primitive, output.id)(inputs=input_data).value
-                _output_table.append({output.id: result})
+                _output_table.append({output.id: result.value})
 
     # extract the final output
     output_dataref = pipeline.outputs[0].data
