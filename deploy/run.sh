@@ -5,6 +5,7 @@ source ./config.sh
 docker run \
     --name pipeline-runner \
     --rm \
+    -d \
     -p 50051:50051 \
     --env D3MOUTPUTDIR=$D3MOUTPUTDIR \
     --env D3MINPUTDIR=$D3MINPUTDIR \
