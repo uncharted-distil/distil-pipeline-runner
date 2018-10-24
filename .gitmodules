@@ -1,0 +1,3 @@
+[submodule "proto/ta3ta2-api"]
+	path = proto/ta3ta2-api
+	url = https://gitlab.com/datadrivendiscovery/ta3ta2-api
