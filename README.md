@@ -63,5 +63,5 @@ pip3 install mypy-protobuf
 Generate the protobuf files and MyPy type definitions for them:
 
 ```shell
-python3 -m grpc_tools.protoc -I./proto --python_out=./pipelinerunner --grpc_python_out=./pipelinerunner --mypy_out=./pipelinerunner ./proto/*.proto
+./gen_proto.sh
 ```
