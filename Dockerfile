@@ -61,7 +61,16 @@ RUN rm /root/.ssh/id_rsa
 COPY pipelinerunner ./pipelinerunner
 COPY proto ./proto
 COPY test ./test
-RUN python3 -m grpc_tools.protoc -I./proto --python_out=./pipelinerunner --grpc_python_out=./pipelinerunner --mypy_out=./pipelinerunner ./proto/*.proto
+RUN python3 -m grpc_tools.protoc \
+    -I./proto/ta3ta2-api \
+    -I./proto \
+    --python_out=./pipelinerunner \
+    --grpc_python_out=./pipelinerunner \
+    --mypy_out=./pipelinerunner \
+    ./proto/ta3ta2-api/value.proto \
+    ./proto/ta3ta2-api/primitive.proto \
+    ./proto/ta3ta2-api/pipeline.proto \
+    ./proto/execute.proto
 
 ENV D3MOUTPUTDIR=/usr/local/d3m/output
 ENV STATIC_RESOURCE_PATH=/usr/local/d3m/static_resources
