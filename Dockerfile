@@ -49,7 +49,7 @@ RUN pip install -e git+https://github.com/cdbethune/unicorn-d3m-wrapper.git@c843
 # cython isn't installing as  transitive dependency for some reason
 RUN pip install cython
 RUN pip install -e git+https://github.com/cdbethune/sloth-d3m-wrapper.git@aa1beac603ff73b4d3231088a26ad3d4a9e53725#egg=SlothD3MWrapper --process-dependency-links
-RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git#egg=DistilTimeSeriesLoader --process-dependency-links
+RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@271483e6c4f884a2f49c246ca51490b94f5ff88b#egg=DistilTimeSeriesLoader --process-dependency-links
 
 # Get rid of the access key.
 # ** NOTE: ** if build without --squash arg this will still be in the
