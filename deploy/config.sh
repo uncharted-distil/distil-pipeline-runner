@@ -14,5 +14,5 @@ D3MOUTPUTDIR=/output
 STATIC_RESOURCE_PATH=/static_resources
 
 # Time series loader SSH deploy key location
-SSH_KEY_LOCATION=~/keys/distil-timeseries-loader_rsa
+TIMESERIES_LOADER_KEY_LOC=~/keys/distil-timeseries-loader_rsa
 
