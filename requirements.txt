@@ -17,3 +17,4 @@ cython
 -e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@248210ba89c77a4045f6059034aa6b87bb6a3875#egg=SlothD3MWrapper --process-dependency-links
 -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@2ba83b47ec207f1d04ba1e5009d94d30987ea396#egg=CrocD3MWrapper --process-dependency-links
 -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git#egg=DistilTimeSeriesLoader --process-dependency-links
+-e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@e54c9296ed9988976bdf494143681d0b19ab11e7#egg=DistilMIRanking --process-dependency-links

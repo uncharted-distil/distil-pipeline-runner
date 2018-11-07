@@ -26,15 +26,8 @@ RUN pip install https://github.com/explosion/spacy-models/releases/download/en_c
 # COPY requirements.txt ./requirements.txt
 # RUN pip3 install -r requirements.txt --process-dependency-links
 
-# Setup for private repo access
-ARG SSH_PRIVATE_KEY
-RUN mkdir -p /root/.ssh
-RUN echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa
-RUN chmod 0600 /root/.ssh/id_rsa
-RUN touch /root/.ssh/known_hosts
-RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-# D3M baseline packages
+# D3M baseline packages - do this first because there are a lot of dependencies
 RUN pip install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@3bf21226aff90a826cf36b8b9694cedb81ff6357#egg=common_primitives --process-dependency-links
 RUN pip install -e git+https://gitlab.com/datadrivendiscovery/d3m.git@f34bf97e8fe4ce78397adcfc291ddca778a34b5f#egg=d3m --process-dependency-links
 
@@ -49,13 +42,27 @@ RUN pip install -e git+https://github.com/cdbethune/unicorn-d3m-wrapper.git@c843
 # cython isn't installing as  transitive dependency for some reason
 RUN pip install cython
 RUN pip install -e git+https://github.com/cdbethune/sloth-d3m-wrapper.git@aa1beac603ff73b4d3231088a26ad3d4a9e53725#egg=SlothD3MWrapper --process-dependency-links
+
+# Uncharted Primitives
+
+# Setup for private repo access
+ARG TIMESERIES_PRIVATE_KEY
+ARG MIRANKING_PRIVATE_KEY
+RUN mkdir -p /root/.ssh
+RUN echo "${TIMESERIES_PRIVATE_KEY}" > /root/.ssh/timeseries_id_rsa
+RUN echo "${MIRANKING_PRIVATE_KEY}" > /root/.ssh/miranking_id_rsa
+RUN chmod 0600 /root/.ssh/*_id_rsa
+RUN touch /root/.ssh/known_hosts
+RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
+
 RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@271483e6c4f884a2f49c246ca51490b94f5ff88b#egg=DistilTimeSeriesLoader --process-dependency-links
+RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@e54c9296ed9988976bdf494143681d0b19ab11e7#egg=DistilMIRanking --process-dependency-links
 
 # Get rid of the access key.
 # ** NOTE: ** if build without --squash arg this will still be in the
 # image history.  This is a read only key for a low importance repo
 # so not a huge issue if it leaks.
-RUN rm /root/.ssh/id_rsa
+RUN rm /root/.ssh/*_id_rsa
 
 # Setup the pipeline runner source
 COPY pipelinerunner ./pipelinerunner
