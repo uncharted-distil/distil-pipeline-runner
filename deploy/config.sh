@@ -14,6 +14,5 @@ D3MOUTPUTDIR=/home/chris/dev/go_workspace/src/github.com/unchartedsoftware/disti
 STATIC_RESOURCE_PATH=/home/chris/data/d3m_models
 
 # Private GitHub repo key locations
-TIMESERIES_LOADER_KEY_LOC=~/keys/deploy_keys/distil-timeseries-loader/distil-timeseries-loader_rsa
-MIRANKING_LOADER_KEY_LOC=~/keys/deploy_keys/distil-mi-ranking/distil-mi-ranking_rsa
+SSH_KEY_LOC=~/keys/d3mbuild/distil-primitives/distil-primitives_rsa
 

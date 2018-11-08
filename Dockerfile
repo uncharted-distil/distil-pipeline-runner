@@ -46,12 +46,10 @@ RUN pip install -e git+https://github.com/cdbethune/sloth-d3m-wrapper.git@aa1bea
 # Uncharted Primitives
 
 # Setup for private repo access
-ARG TIMESERIES_PRIVATE_KEY
-ARG MIRANKING_PRIVATE_KEY
+ARG SSH_KEY
 RUN mkdir -p /root/.ssh
-RUN echo "${TIMESERIES_PRIVATE_KEY}" > /root/.ssh/timeseries_id_rsa
-RUN echo "${MIRANKING_PRIVATE_KEY}" > /root/.ssh/miranking_id_rsa
-RUN chmod 0600 /root/.ssh/*_id_rsa
+RUN echo "${SSH_KEY}" > /root/.ssh/id_rsa
+RUN chmod 0600 /root/.ssh/id_rsa
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
@@ -62,7 +60,7 @@ RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.
 # ** NOTE: ** if build without --squash arg this will still be in the
 # image history.  This is a read only key for a low importance repo
 # so not a huge issue if it leaks.
-RUN rm /root/.ssh/*_id_rsa
+RUN rm /root/.ssh/id_rsa
 
 # Setup the pipeline runner source
 COPY pipelinerunner ./pipelinerunner
