@@ -4,6 +4,7 @@ A light weight pipeline execution engine focused on primitives used by Distil fo
 
 ## Installation
 
+
 Install python
 
 ```bash
@@ -29,6 +30,27 @@ pip3 install --upgrade pip
 pip3 install --upgrade setuptools
 ```
 
+Setup GRPC:
+
+```shell
+pip3 install grpcio
+pip3 install grpcio-tools googleapis-common-protos
+pip3 install mypy-protobuf
+```
+
+Pull the TA3TA2 API proto files:
+
+```shell
+git submodule init
+git submodule update
+```
+
+Generate the protobuf files and MyPy type definitions for them:
+
+```shell
+./gen_proto.sh
+```
+
 From the project root, install dependencies:
 
 ```bash
@@ -50,18 +72,4 @@ Additional primitives can be installed manually as needed. Example:
 pip3 install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git#egg=SimonD3MWrapper --process-dependency-links
 ```
 
-### Building GRPC/proto files
 
-If there is a desire to build / update source from the proto definitions install GRPC:
-
-```shell
-pip3 install grpcio
-pip3 install grpcio-tools googleapis-common-protos
-pip3 install mypy-protobuf
-```
-
-Generate the protobuf files and MyPy type definitions for them:
-
-```shell
-./gen_proto.sh
-```

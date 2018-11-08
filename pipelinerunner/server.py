@@ -20,11 +20,14 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
                         request: execute_pb2.PipelineExecuteRequest,
                         context: grpc.RpcContext) -> execute_pb2.PipelineExecuteResponse:
         print("Executing pipeline", request)
-
+        verbose_primitive_output = False if os.environ.get('VERBOSE_PRIMITIVE_OUTPUT') is None else True
         static_res_path = os.environ['STATIC_RESOURCE_PATH']
 
         # execute the pipeline against the data
-        output = pe.execute_pipeline(request.pipelineDescription, request.inputs[0].dataset_uri, static_res_path)
+        output = pe.execute_pipeline(request.pipelineDescription,
+                                     request.inputs[0].dataset_uri,
+                                     static_res_path,
+                                     verbose_primitive_output)
 
         # get output dir
         output_path = self.get_output_path()

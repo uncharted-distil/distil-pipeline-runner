@@ -2,6 +2,9 @@
 
 source ./config.sh
 
+# add VERBOSE_PRIMTIIVE_OUTPUT=1 to env vars below to enable primitive param / result
+# output
+
 docker run \
     --name pipeline-runner \
     --rm \

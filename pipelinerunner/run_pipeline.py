@@ -9,8 +9,7 @@ if __name__ == "__main__":
     parser.add_argument('pipeline_file', type=str, help='serialized protobuf pipeline to execute')
     parser.add_argument('dataset_file', type=str, help='datasetDoc.json file to run pipeline against')
     parser.add_argument('-r', '--resource', type=str, help='directory containing primitive static resources')
-    parser.add_argument('-v',
-                        '--verbose', action='store_true', help='display detailed primitive execution')
+    parser.add_argument('-v', '--verbose', action='store_true', help='display detailed primitive execution')
 
     args = parser.parse_args()
 
