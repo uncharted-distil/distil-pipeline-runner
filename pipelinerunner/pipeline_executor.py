@@ -4,6 +4,7 @@ import time
 import os
 from typing import List, Dict, Any, Optional
 from concurrent import futures
+import pprint
 
 import importlib
 import pipeline_pb2
@@ -128,7 +129,8 @@ def _load_pipeline(filename: str) -> pipeline_pb2.PipelineDescription:
 
 def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
                      dataset_filename: str,
-                     static_resource_path: Optional[str] = None) -> Any:
+                     static_resource_path: Optional[str] = None,
+                     debug: bool = False) -> Any:
     """
         Executes a binrary protobuf pipeline against a supplied d3m dataset.
 
@@ -160,6 +162,12 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
         static_resources = _get_static_resources(primitive_class, static_resource_path)
         hyperparams = _get_hyperparameters(step.primitive, primitive_class)
 
+        if debug:
+            print('\033[94mExecuting primitive: ' + name)
+            print('Hyperparams:')
+            pprint.pprint(hyperparams)
+            print('\033[0m')
+
         primitive = None
         if static_resources:
             primitive = primitive_class(hyperparams=hyperparams, volumes=static_resources)
@@ -175,12 +183,15 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
             else:
                 _output_table.append({output.id: result.value})
 
+            if debug:
+                print('Result:')
+                print(result.value)
     # extract the final output
     output_dataref = pipeline.outputs[0].data
     return _resolve_output(output_dataref)
 
 
-def execute_pipeline_file(pipeline_filename: str, dataset_filename: str, static_resource_path: str = None) -> Any:
+def execute_pipeline_file(pipeline_filename: str, dataset_filename: str, static_resource_path: str = None, debug: bool = False) -> Any:
     """
         Executes a binrary protobuf pipeline against a supplied d3m dataset.
 
@@ -196,4 +207,4 @@ def execute_pipeline_file(pipeline_filename: str, dataset_filename: str, static_
 
     # load the protobuf pipeline def
     pipeline = _load_pipeline(pipeline_filename)
-    return execute_pipeline(pipeline, dataset_filename, static_resource_path)
+    return execute_pipeline(pipeline, dataset_filename, static_resource_path, debug)

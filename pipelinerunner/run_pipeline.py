@@ -1,19 +1,19 @@
 #!/bin/bash
 import sys
+import argparse
 import pipeline_executor as pe
 
 if __name__ == "__main__":
-    # path to pipeline file
-    pipeline_filename = sys.argv[1]
 
-    # path to dataset
-    dataset_filename = sys.argv[2]
+    parser = argparse.ArgumentParser('runs d3m pipeline and writes output to stdout')
+    parser.add_argument('pipeline_file', type=str, help='serialized protobuf pipeline to execute')
+    parser.add_argument('dataset_file', type=str, help='datasetDoc.json file to run pipeline against')
+    parser.add_argument('-r', '--resource', type=str, help='directory containing primitive static resources')
+    parser.add_argument('-v',
+                        '--verbose', action='store_true', help='display detailed primitive execution')
 
-    # optional resource path
-    static_resource_path = None
-    if len(sys.argv) >= 4:
-        static_resource_path = sys.argv[3]
+    args = parser.parse_args()
 
     # execute the pipeline against the data
-    output = pe.execute_pipeline_file(pipeline_filename, dataset_filename, static_resource_path)
+    output = pe.execute_pipeline_file(args.pipeline_file, args.dataset_file, args.resource, args.verbose)
     print(output)
