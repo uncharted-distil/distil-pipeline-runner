@@ -1,0 +1,32 @@
+*ranking_test2test target ranking pipelineJsteps.3.produceRÓ
+Ð
+ª
+$f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.0#d3m.primitives.datasets.Denormalize"Denormalize datasets*@c39e3436373aed1944edbbc9b1cf24af5c71919d73bf0bb545cba0b685812df1
+inputs
+
+
+inputs.0	
+produceRë
+è
+»
+$4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0*d3m.primitives.datasets.DatasetToDataFrame"Dataset to DataFrame converter*@85b946aa6123354fe51a288c3be56aaca82e76d4071c1edc13be6f9e0e100144
+inputs
+
+steps.0.produce	
+produceRŸ
+œ
+p
+$d510cb7a-1782-4f51-b44c-58f0236e47c70.4.0 d3m.primitives.data.ColumnParser"Parses strings into their types
+inputs
+
+steps.1.produce	
+produceR‚
+ÿ
+´
+$a31b0c26-cca8-4d54-95b9-886e23df88860.1.0d3m.primitives.distil.MIRanking""Mutual Information Feature Ranking*@5302eebf2fb8a80e9f00e7b74888aba9eb448a9c0463d9d26786dab717a62c61
+inputs
+
+steps.2.produce	
+produce"
+target_col_index"
+
