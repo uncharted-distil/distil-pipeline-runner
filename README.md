@@ -37,21 +37,20 @@ pip3 install grpcio
 pip3 install grpcio-tools googleapis-common-protos
 pip3 install mypy-protobuf
 ```
-
-Pull the TA3TA2 API proto files:
+Clone this directory, and from the project root pull the TA3TA2 API proto files:
 
 ```shell
 git submodule init
 git submodule update
 ```
 
-Generate the protobuf files and MyPy type definitions for them:
+Then, generate the protobuf files and MyPy type definitions for them:
 
 ```shell
 ./gen_proto.sh
 ```
 
-From the project root, install dependencies:
+Finally, install dependencies:
 
 ```bash
 pip3 install -r requirements.txt --process-dependency-links
@@ -62,9 +61,10 @@ This will install a basic set of D3M primitives - those from the `common_primitv
 To run a test pipeline:
 
 ```shell
-cd pipelinerunner
-python3 run_pipeline.py ../test/create_pca_features.pln file:///<absolute_path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
+python3 ./pipelinerunner/run_pipeline.py ./test/create_pca_features.pln file:///<absolute_path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
 ```
+
+You can add `-r path_to_static_resource_directory` and `-v` to the end of the run command above, for static resource use and verbose output from each primitive.
 
 Additional primitives can be installed manually as needed. Example:
 
