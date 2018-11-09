@@ -61,9 +61,10 @@ This will install a basic set of D3M primitives - those from the `common_primitv
 To run a test pipeline:
 
 ```shell
-cd pipelinerunner
-python3 run_pipeline.py ../test/create_pca_features.pln file:///<absolute_path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
+python3 ./pipelinerunner/run_pipeline.py ./test/create_pca_features.pln file:///<absolute_path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
 ```
+
+You can add `-r path_to_static_resource_directory` and `-v` to the end of the run command above, for static resource use and verbose output from each primitive.
 
 Additional primitives can be installed manually as needed. Example:
 
