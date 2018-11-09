@@ -54,7 +54,7 @@ RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@271483e6c4f884a2f49c246ca51490b94f5ff88b#egg=DistilTimeSeriesLoader --process-dependency-links
-RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@e54c9296ed9988976bdf494143681d0b19ab11e7#egg=DistilMIRanking --process-dependency-links
+RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@16b1be14cb80ff14a80cd5db99eb2057b44098e1#egg=DistilMIRanking --process-dependency-links
 
 # Get rid of the access key.
 # ** NOTE: ** if build without --squash arg this will still be in the
