@@ -37,21 +37,20 @@ pip3 install grpcio
 pip3 install grpcio-tools googleapis-common-protos
 pip3 install mypy-protobuf
 ```
-
-Pull the TA3TA2 API proto files:
+Clone this directory, and from the project root pull the TA3TA2 API proto files:
 
 ```shell
 git submodule init
 git submodule update
 ```
 
-Generate the protobuf files and MyPy type definitions for them:
+Then, generate the protobuf files and MyPy type definitions for them:
 
 ```shell
 ./gen_proto.sh
 ```
 
-From the project root, install dependencies:
+Finally, install dependencies:
 
 ```bash
 pip3 install -r requirements.txt --process-dependency-links

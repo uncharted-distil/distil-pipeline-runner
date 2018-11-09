@@ -1,5 +1,5 @@
 # baseline spacy english model - didn't seem to be installing as a transitive dependency
--e git+https://github.com/explosion/spacy-models/releases/download/en_core_web_md-2.0.0/en_core_web_md-2.0.0.tar.gz
+https://github.com/explosion/spacy-models/releases/download/en_core_web_md-2.0.0/en_core_web_md-2.0.0.tar.gz
 
 # cython - didnt' seem to be installing as a transitive dependency
 cython
@@ -17,4 +17,4 @@ cython
 -e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@248210ba89c77a4045f6059034aa6b87bb6a3875#egg=SlothD3MWrapper --process-dependency-links
 -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@2ba83b47ec207f1d04ba1e5009d94d30987ea396#egg=CrocD3MWrapper --process-dependency-links
 -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git#egg=DistilTimeSeriesLoader --process-dependency-links
--e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@-e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@16b1be14cb80ff14a80cd5db99eb2057b44098e1#egg=DistilMIRanking --process-dependency-links#egg=DistilMIRanking --process-dependency-links
+-e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@16b1be14cb80ff14a80cd5db99eb2057b44098e1#egg=DistilMIRanking --process-dependency-links
