@@ -104,17 +104,24 @@ def _get_raw_hyperparameter(value: value_pb2.ValueRaw) -> Any:
 
     return None
 
-
 def _get_static_resources(primitive_class: frozendict.FrozenOrderedDict,
                           static_res_path: Optional[str]) -> Optional[Dict[str, str]]:
     # create a table of static resource paths for this primitive if specified
     for installation in primitive_class.metadata.query()['installation']:
         if installation['type'] is 'TGZ':
             volumes = {}
+
             if static_res_path:
-                volumes[installation['key']] = os.path.join(static_res_path, installation['key'])
+                if os.path.isdir(os.path.join(static_res_path, installation['file_digest'])):
+                    volumes[installation['key']] = os.path.join(static_res_path,  installation['file_digest'], installation['key'])
+                else:
+                    volumes[installation['key']] = os.path.join(static_res_path, installation['key'])
             else:
-                volumes[installation['key']] = installation['key']
+                if os.path.isdir(installation['file_digest']):
+                    volumes[installation['key']] = os.path.join(installation['file_digest'], installation['key'])
+                else:
+                    volumes[installation['key']] = installation['key']
+
             return volumes
     return None
 
