@@ -113,12 +113,12 @@ def _get_static_resources(primitive_class: frozendict.FrozenOrderedDict,
 
             if static_res_path:
                 if os.path.isdir(os.path.join(static_res_path, installation['file_digest'])):
-                    volumes[installation['key']] = os.path.join(static_res_path,  installation['file_digest'], installation['key'])
+                    volumes[installation['key']] = os.path.join(static_res_path,  installation['file_digest'])
                 else:
                     volumes[installation['key']] = os.path.join(static_res_path, installation['key'])
             else:
                 if os.path.isdir(installation['file_digest']):
-                    volumes[installation['key']] = os.path.join(installation['file_digest'], installation['key'])
+                    volumes[installation['key']] = os.path.join(installation['file_digest'])
                 else:
                     volumes[installation['key']] = installation['key']
 
