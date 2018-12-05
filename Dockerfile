@@ -26,9 +26,10 @@ RUN pip install https://github.com/explosion/spacy-models/releases/download/en_c
 # COPY requirements.txt ./requirements.txt
 # RUN pip3 install -r requirements.txt --process-dependency-links
 
-
+RUN pip install torch
+RUN pop install 'imageio<2.4.0'
 # D3M baseline packages - do this first because there are a lot of dependencies
-RUN pip install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@3bf21226aff90a826cf36b8b9694cedb81ff6357#egg=common_primitives --process-dependency-links
+RUN pip install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@3bf21226aff90a826cf36b8b9694cedb81ff6357#egg=common_primitives --process-dependency-links --no-deps
 RUN pip install -e git+https://gitlab.com/datadrivendiscovery/d3m.git@f34bf97e8fe4ce78397adcfc291ddca778a34b5f#egg=d3m --process-dependency-links
 
 # NK Primitives
@@ -42,6 +43,8 @@ RUN pip install -e git+https://github.com/cdbethune/unicorn-d3m-wrapper.git@c843
 # cython isn't installing as  transitive dependency for some reason
 RUN pip install cython
 RUN pip install -e git+https://github.com/cdbethune/sloth-d3m-wrapper.git@aa1beac603ff73b4d3231088a26ad3d4a9e53725#egg=SlothD3MWrapper --process-dependency-links
+
+
 
 # Uncharted Primitives
 
