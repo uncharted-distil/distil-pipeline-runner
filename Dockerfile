@@ -27,7 +27,7 @@ RUN pip install https://github.com/explosion/spacy-models/releases/download/en_c
 # RUN pip3 install -r requirements.txt --process-dependency-links
 
 RUN pip install torch
-RUN pop install 'imageio<2.4.0'
+RUN pip install 'imageio<2.4.0'
 # D3M baseline packages - do this first because there are a lot of dependencies
 RUN pip install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@3bf21226aff90a826cf36b8b9694cedb81ff6357#egg=common_primitives --process-dependency-links --no-deps
 RUN pip install -e git+https://gitlab.com/datadrivendiscovery/d3m.git@f34bf97e8fe4ce78397adcfc291ddca778a34b5f#egg=d3m --process-dependency-links
