@@ -37,6 +37,8 @@ CSV_URI = typing___cast(ValueType, 3)
 PICKLE_URI = typing___cast(ValueType, 4)
 PICKLE_BLOB = typing___cast(ValueType, 5)
 PLASMA_ID = typing___cast(ValueType, 6)
+LARGE_RAW = typing___cast(ValueType, 7)
+LARGE_PICKLE_BLOB = typing___cast(ValueType, 8)
 
 class NullValue(int):
     @classmethod

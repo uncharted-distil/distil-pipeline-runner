@@ -1,4 +1,6 @@
-*pca_features_test2!test pca feature ranking pipelineJsteps.1.produceRä
+ *pca_features_test2!test pca feature ranking pipelineB
+inputJ
+outputssteps.1.produceRä
 á
 »
 $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0*d3m.primitives.datasets.DatasetToDataFrame"Dataset to DataFrame converter*@85b946aa6123354fe51a288c3be56aaca82e76d4071c1edc13be6f9e0e100144
@@ -6,11 +8,15 @@ $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0*d3m.primitives.datasets.DatasetToD
 
 
 inputs.0	
-produceRÐ
-Í
+produceRé
+æ
  
 $04573880-d64f-4791-8932-52b7c38776393.0.0!d3m.primitives.distil.pcafeatures"PCA Features*@5302eebf2fb8a80e9f00e7b74888aba9eb448a9c0463d9d26786dab717a62c61
 inputs
 
-steps.0.produce	
+steps.0.produce
+outputs
+
+
+inputs.0	
 produce
