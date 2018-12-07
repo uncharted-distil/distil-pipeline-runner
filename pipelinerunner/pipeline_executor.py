@@ -104,6 +104,7 @@ def _get_raw_hyperparameter(value: value_pb2.ValueRaw) -> Any:
 
     return None
 
+
 def _get_static_resources(primitive_class: frozendict.FrozenOrderedDict,
                           static_res_path: Optional[str]) -> Optional[Dict[str, str]]:
     # create a table of static resource paths for this primitive if specified

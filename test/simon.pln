@@ -1,5 +1,7 @@
-*
-simon_test2"test simon classification pipelineJsteps.1.produceR‰
+ *
+simon_test2"test simon classification pipelineB
+inputJ
+outputssteps.2.produceR‰
 ·
 ª
 $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0*d3m.primitives.datasets.DatasetToDataFrame"Dataset to DataFrame converter*@85b946aa6123354fe51a288c3be56aaca82e76d4071c1edc13be6f9e0e100144
@@ -7,11 +9,18 @@ $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0*d3m.primitives.datasets.DatasetToD
 
 
 inputs.0	
+produceRè
+å
+`
+$fc6bf33a-f3e0-3496-aa47-9a40289661bc3.0.0"d3m.primitives.distil.datacleaning"Data cleaning
+inputs
+
+steps.0.produce	
 produceR√
 ¿
 ì
 $d2fa8df2-6517-3c26-bafc-87b701c4043a1.1.1d3m.primitives.distil.simon"simon*@0673d166f157944d3b6fdfa451f31fdfdbead7315ede3d6d9edb20f3f220b836
 inputs
 
-steps.0.produce	
+steps.1.produce	
 produce
