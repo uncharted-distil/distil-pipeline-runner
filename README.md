@@ -40,31 +40,37 @@ pip3 install mypy-protobuf
 Clone this directory, and from the project root pull the TA3TA2 API proto files:
 
 ```shell
+git clone github@github.com:unchartedsoftware/distil-pipeline-runner.git
 git submodule init
 git submodule update
+cd distil-pipeline-runner
 ```
 
-Then, generate the protobuf files and MyPy type definitions for them:
-
-```shell
-./gen_proto.sh
-```
-
-Finally, install dependencies:
+Finally, install dependencies (this can take a while):
 
 ```bash
 pip3 install -r requirements.txt --process-dependency-links
 ```
 
-This will install a basic set of D3M primitives - those from the `common_primitves` repo, and the NK PCA Features primitive.
-
 To run a test pipeline:
 
 ```shell
-python3 ./pipelinerunner/run_pipeline.py ./test/create_pca_features.pln file:///<absolute_path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
+python3 ./pipelinerunner/run_pipeline.py ./test/pca_features.pln file:///<absolute_path_to_data>/196_autoMpg/TRAIN/dataset_TRAIN/datasetDoc.json
 ```
 
-You can add `-r path_to_static_resource_directory` and `-v` to the end of the run command above, for static resource use and verbose output from each primitive.
+You can add `-r <path_to_static_resource_directory>` and `-v` to the end of the run command above, for static resource use and verbose output from each primitive.  The input file can either be serialized protobuf (.pln) or JSON (.json).
+
+To convert a protobuf pipeline to JSON:
+
+```shell
+python3 ./pipelinerunner/proto_to_json.py ./test/pca_features.pln pca_features.json
+```
+
+To convert a JSON pipeline protobuf:
+
+```shell
+python3 ./pipelinerunner/json_to_proto.py ./test/pca_features.json pca_features.pln
+```
 
 Additional primitives can be installed manually as needed. Example:
 
@@ -72,4 +78,8 @@ Additional primitives can be installed manually as needed. Example:
 pip3 install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git#egg=SimonD3MWrapper --process-dependency-links
 ```
 
+[OPTIONAL] To re-generate the protobuf files and MyPy type definitions for them:
 
+```shell
+./gen_proto.sh
+```
