@@ -17,15 +17,9 @@ RUN pip install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.
 RUN pip install -e git+https://gitlab.com/datadrivendiscovery/d3m.git@f34bf97e8fe4ce78397adcfc291ddca778a34b5f#egg=d3m --process-dependency-links
 
 # NK Primitives
-RUN pip install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@2ba83b47ec207f1d04ba1e5009d94d30987ea396#egg=CrocD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@3dc75dd177a20bd28ab7fc1262a177d4cd58f3c7#egg=CrocD3MWrapper --process-dependency-links
 RUN pip install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@5ec8cf9d0288bc1f581e7e44f1b61ce73ceaeefd#egg=PcafeaturesD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@8845285e63116ca6ac814b7ef6d7af696447e305#egg=SimonD3MWrapper --process-dependency-links
-
-# revert to NK version once fixes are merged
-RUN pip install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@0b1495d6f34dc828011d9d55be2b42917c5b67d8#egg=DukeD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/cdbethune/unicorn-d3m-wrapper.git@c843fe7f3d18240331eb785862b8880aeff707be#egg=UnicornD3MWrapper --process-dependency-links
-#-e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@7318a8354cbc6f336e08f26c14e6b372d7b5a10c#egg=UnicornD3MWrapper --process-dependency-links
-
-# cython isn't installing as  transitive dependency for some reason
-RUN pip install cython
-RUN pip install -e git+https://github.com/cdbethune/sloth-d3m-wrapper.git@aa1beac603ff73b4d3231088a26ad3d4a9e53725#egg=SlothD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@9d2b45a8df2884939c6b65de1c1aa62f3ea9c1d6#egg=SimonD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@d663598850d14c8bccc2460e56e87a094f0830ed#egg=DukeD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@2c9bacb40f987f692ada5f0f12b9b56261be70fa#egg=UnicornD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@d3e2cb6f31b3a6954f79d97f148a3ec08495f7d5#egg=SlothD3MWrapper --process-dependency-links
