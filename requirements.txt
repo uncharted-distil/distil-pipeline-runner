@@ -4,7 +4,7 @@ cython
 # D3m baseline packages
 -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@3bf21226aff90a826cf36b8b9694cedb81ff6357#egg=common_primitives --process-dependency-links
 -e git+https://gitlab.com/datadrivendiscovery/d3m.git@f34bf97e8fe4ce78397adcfc291ddca778a34b5f#egg=d3m --process-dependency-links
-
+-e ./proto/ta3ta2-api
 # New Knowledge Primitives
 -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@3dc75dd177a20bd28ab7fc1262a177d4cd58f3c7#egg=CrocD3MWrapper --process-dependency-links
 -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@5ec8cf9d0288bc1f581e7e44f1b61ce73ceaeefd#egg=PcafeaturesD3MWrapper --process-dependency-links
@@ -16,3 +16,4 @@ cython
 # Uncharted Primitives
 -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git#egg=DistilTimeSeriesLoader --process-dependency-links
 -e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@16b1be14cb80ff14a80cd5db99eb2057b44098e1#egg=DistilMIRanking --process-dependency-links
+
