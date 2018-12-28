@@ -1,0 +1,27 @@
+*goat_reverse_test2$test goat reverse geocoding pipelineJsteps.2.produceRÓ
+Ð
+ª
+$f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.0#d3m.primitives.datasets.Denormalize"Denormalize datasets*@c39e3436373aed1944edbbc9b1cf24af5c71919d73bf0bb545cba0b685812df1
+inputs
+
+
+inputs.0	
+produceRë
+è
+»
+$4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0*d3m.primitives.datasets.DatasetToDataFrame"Dataset to DataFrame converter*@85b946aa6123354fe51a288c3be56aaca82e76d4071c1edc13be6f9e0e100144
+inputs
+
+steps.0.produce	
+produceRÊ
+Ç
+_
+$f6e4880b-98c7-32f0-b687-a4b1d74c8f991.0.2"d3m.primitives.distil.Goat.reverse"Goat.reverse
+inputs
+
+steps.1.produce	
+produce"
+lon_col_index"	
+*lat"
+lat_col_index"	
+*lon
