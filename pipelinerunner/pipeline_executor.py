@@ -136,16 +136,16 @@ def _load_pipeline(filename: str) -> pipeline_pb2.PipelineDescription:
 
 
 def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
-                     dataset_filename: str,
+                     dataset_filenames: List[str],
                      static_resource_path: Optional[str] = None,
                      debug: bool = False) -> Any:
     """
-        Executes a binrary protobuf pipeline against a supplied d3m dataset.
+        Executes a binary protobuf pipeline against a supplied d3m dataset.
 
     Parameters
     ----------
     pipeline: protobuf pipeline definition
-    dataset_filename: path to folder containing a D3M dataset
+    dataset_filenames: paths to folders containing input D3M datasets
 
     Returns
     -------
@@ -156,7 +156,7 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     _output_table.clear()
 
     # load the input dataset
-    input_dataset = container.Dataset.load(dataset_filename)
+    input_dataset = container.Dataset.load(dataset_filenames[0])
     _input_table.append(input_dataset)
 
     steps = pipeline.steps
@@ -199,14 +199,17 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     return _resolve_output(output_dataref)
 
 
-def execute_pipeline_file(pipeline_filename: str, dataset_filename: str, static_resource_path: str = None, debug: bool = False) -> Any:
+def execute_pipeline_file(pipeline_filename: str,
+                          dataset_filenames: List[str],
+                          static_resource_path: str = None,
+                          debug: bool = False) -> Any:
     """
-        Executes a binrary protobuf pipeline against a supplied d3m dataset.
+        Executes a binary protobuf pipeline against a supplied d3m dataset.
 
     Parameters
     ----------
     pipeline_filename: path to binary protobuf pipeline definition
-    dataset_filename: path to folder containing a D3M dataset
+    dataset_filenames: paths to folders containing input D3M datasets
 
     Returns
     -------
@@ -215,4 +218,4 @@ def execute_pipeline_file(pipeline_filename: str, dataset_filename: str, static_
 
     # load the protobuf pipeline def
     pipeline = _load_pipeline(pipeline_filename)
-    return execute_pipeline(pipeline, dataset_filename, static_resource_path, debug)
+    return execute_pipeline(pipeline, dataset_filenames, static_resource_path, debug)
