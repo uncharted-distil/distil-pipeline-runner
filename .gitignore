@@ -8,3 +8,6 @@ output
 static_resources
 TODO.md
 pipelinerunner/*_pb2.py
+test/unencoded_chars.json
+
+
