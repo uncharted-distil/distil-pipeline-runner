@@ -37,7 +37,7 @@ pip3 install grpcio
 pip3 install grpcio-tools googleapis-common-protos
 pip3 install mypy-protobuf
 ```
-Clone this directory, and from the project root pull the TA3TA2 API proto files:
+Clone this directory, and from the project root pull the TA3TA2 API files:
 
 ```shell
 git clone github@github.com:unchartedsoftware/distil-pipeline-runner.git
@@ -81,5 +81,10 @@ pip3 install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git#egg=Si
 [OPTIONAL] To re-generate the protobuf files and MyPy type definitions for them:
 
 ```shell
+cd proto/ta3ta2_api
+git checkout devel
+cd ../..
 ./gen_proto.sh
 ```
+
+The ta3ta2 submodule currently picks up the latest generated version of the ta3ta2 API, so this should only be necessary if `proto/execute.proto` is modified and needs to be rebuilt.
