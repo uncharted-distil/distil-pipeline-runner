@@ -21,21 +21,25 @@ _input_table: List[container.Dataset] = []
 _output_table: List[Dict[str, Any]] = []
 
 
-def _resolve_output(dataref: str) -> List[Dict[str, Any]]:
-    # on inputs use the input dataset, on subsequent
+def _resolve_output(dataref: str) -> Any:
     dataref_parts = dataref.split(".")
     if dataref_parts[0] == 'inputs':
+        # for pipeline inputs references pull from the inputs table
         return _input_table[int(dataref_parts[1])]
     if dataref_parts[0] == 'steps':
+        # for references to other pipeline steps, pull from the outputs table which is
+        # addressed by step index and output name
         return _output_table[int(dataref_parts[1])][dataref_parts[2]]
     return []
 
 
-def _get_input(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep) -> List[Dict[str, Any]]:
-    # get the input data reference
-    inputs = primitive_step.arguments['inputs']
-    dataref = inputs.container.data
-    return _resolve_output(dataref)
+def _get_input(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep) -> Dict[str, Any]:
+    # get the actual input data container (ie. Dataset, Dataframe) using the step's data references
+    inputs: Dict[str, Any] = {}
+    for arg_name in primitive_step.arguments:
+        arg_value = primitive_step.arguments[arg_name]
+        inputs[arg_name] = _resolve_output(arg_value.container.data)
+    return inputs
 
 
 def _get_hyperparameters(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep,
@@ -135,6 +139,64 @@ def _load_pipeline(filename: str) -> pipeline_pb2.PipelineDescription:
     return pipeline
 
 
+def _create_child_lookup(pipeline: pipeline_pb2.PipelineDescription) -> Dict[int, List[int]]:
+    # create a dict that provides the children for a given step.  The key is the step index of the
+    # parent, the value returned is a list of child step indices.
+    node_children: Dict[int, List[int]] = {}
+    for step_idx, step in enumerate(pipeline.steps):
+        primitive_step = step.primitive
+        for arg_name in primitive_step.arguments:
+            arg_value = primitive_step.arguments[arg_name]
+            ref_parts = arg_value.container.data.split(".")
+            # references that point to input datasets should be skipped
+            if ref_parts[0] != "inputs":
+                parent_idx = ref_parts[1]
+                if parent_idx not in node_children:
+                    parent_children: List[int] = []
+                    node_children[int(parent_idx)] = parent_children
+                node_children[int(parent_idx)].append(step_idx)
+    return node_children
+
+
+def _traverse_step(step_idx: int,
+                   child_lookup: Dict[int, List[int]],
+                   processed: List[int]) -> None:
+
+    if step_idx in child_lookup:
+        children = child_lookup[step_idx]
+        for child_idx in children:
+            _traverse_step(child_idx, child_lookup, processed)
+    processed.append(step_idx)
+    return
+
+
+def _sort_pipeline_steps(pipeline: pipeline_pb2.PipelineDescription) -> List[pipeline_pb2.PipelineDescriptionStep]:
+    child_lookup = _create_child_lookup(pipeline)
+
+    # find the graph source nodes - these are primitive steps that only take dataset references as
+    # inputs
+    sources: List[int] = []
+    for step_idx, step in enumerate(pipeline.steps):
+        primitive_step = step.primitive
+        source = True
+        for arg_name in primitive_step.arguments:
+            ref_parts = primitive_step.arguments[arg_name].container.data.split(".")
+            if ref_parts[0] != 'inputs':
+                source = False
+                break
+        if source:
+            sources.append(step_idx)
+
+    # starting at the source nodes, do a post-order traversal and store the processed nodes in a list
+    processed: List[int] = []
+    for source_idx in sources:
+        _traverse_step(source_idx, child_lookup, processed)
+
+    # reverse the processed list to get topologically sorted steps
+    ordered_steps = [pipeline.steps[idx] for idx in reversed(processed)]
+    return ordered_steps
+
+
 def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
                      dataset_filenames: List[str],
                      static_resource_path: Optional[str] = None,
@@ -155,11 +217,15 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     _input_table.clear()
     _output_table.clear()
 
-    # load the input dataset
+    # load the input dataset and add it to the input table
     input_dataset = container.Dataset.load(dataset_filenames[0])
     _input_table.append(input_dataset)
 
-    steps = pipeline.steps
+    # perform a topological sort of the pipeline DAG to get an ordering that takes
+    # dependencies into account
+    steps = _sort_pipeline_steps(pipeline)
+
+    # steps = pipeline.steps
     for step in steps:
         # load the primitive class
         path, name = step.primitive.primitive.python_path.rsplit('.', 1)
@@ -182,10 +248,10 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
         else:
             primitive = primitive_class(hyperparams=hyperparams)
 
-        # reflectively call each output method using the hyperparams
+        # reflectively call each output method using the hyperparams and extracted arguments
         for output in step.primitive.outputs:
             input_data = _get_input(step.primitive)
-            result = getattr(primitive, output.id)(inputs=input_data)
+            result = getattr(primitive, output.id)(**input_data)
             if type(result) is str:
                 raise Exception(result)
             else:
