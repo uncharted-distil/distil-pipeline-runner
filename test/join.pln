@@ -1,0 +1,34 @@
+ *	join_test2test join pipelineB	
+input 0B	
+input 1J
+	outputs 2steps.2.produceRÓ
+Ð
+ª
+$f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.0#d3m.primitives.datasets.Denormalize"Denormalize datasets*@c39e3436373aed1944edbbc9b1cf24af5c71919d73bf0bb545cba0b685812df1
+inputs
+
+
+inputs.0	
+produceRÓ
+Ð
+ª
+$f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.0#d3m.primitives.datasets.Denormalize"Denormalize datasets*@c39e3436373aed1944edbbc9b1cf24af5c71919d73bf0bb545cba0b685812df1
+inputs
+
+
+inputs.1	
+produceRô
+ñ
+f
+$6c3188bf-322d-4f9b-bb91-68151bf1f17f0.1.0d3m.primitives.distil.FuzzyJoin"Fuzzy Join Placeholder
+left
+
+steps.0.produce
+right
+
+steps.1.produce	
+produce"
+left_col"
+*player_name" 
+	right_col"
+*player_name

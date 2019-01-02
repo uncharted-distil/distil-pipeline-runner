@@ -2,7 +2,7 @@
 
 import time
 import os
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Set, Any, Optional
 from concurrent import futures
 import pprint
 
@@ -29,6 +29,7 @@ def _resolve_output(dataref: str) -> Any:
     if dataref_parts[0] == 'steps':
         # for references to other pipeline steps, pull from the outputs table which is
         # addressed by step index and output name
+        print(str(_output_table))
         return _output_table[int(dataref_parts[1])][dataref_parts[2]]
     return []
 
@@ -160,12 +161,15 @@ def _create_child_lookup(pipeline: pipeline_pb2.PipelineDescription) -> Dict[int
 
 def _traverse_step(step_idx: int,
                    child_lookup: Dict[int, List[int]],
+                   visited: Set[int],
                    processed: List[int]) -> None:
 
+    visited.add(step_idx)
     if step_idx in child_lookup:
         children = child_lookup[step_idx]
         for child_idx in children:
-            _traverse_step(child_idx, child_lookup, processed)
+            if child_idx not in visited:
+                _traverse_step(child_idx, child_lookup, visited, processed)
     processed.append(step_idx)
     return
 
@@ -176,6 +180,7 @@ def _sort_pipeline_steps(pipeline: pipeline_pb2.PipelineDescription) -> List[pip
     # find the graph source nodes - these are primitive steps that only take dataset references as
     # inputs
     sources: List[int] = []
+    visited: Set[int] = set()
     for step_idx, step in enumerate(pipeline.steps):
         primitive_step = step.primitive
         source = True
@@ -190,10 +195,13 @@ def _sort_pipeline_steps(pipeline: pipeline_pb2.PipelineDescription) -> List[pip
     # starting at the source nodes, do a post-order traversal and store the processed nodes in a list
     processed: List[int] = []
     for source_idx in sources:
-        _traverse_step(source_idx, child_lookup, processed)
+        _traverse_step(source_idx, child_lookup,  visited, processed)
 
     # reverse the processed list to get topologically sorted steps
     ordered_steps = [pipeline.steps[idx] for idx in reversed(processed)]
+
+    print(str(ordered_steps))
+
     return ordered_steps
 
 
@@ -218,8 +226,9 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     _output_table.clear()
 
     # load the input dataset and add it to the input table
-    input_dataset = container.Dataset.load(dataset_filenames[0])
-    _input_table.append(input_dataset)
+    for dataset_filename in dataset_filenames:
+        input_dataset = container.Dataset.load(dataset_filenames[0])
+        _input_table.append(input_dataset)
 
     # perform a topological sort of the pipeline DAG to get an ordering that takes
     # dependencies into account
