@@ -12,7 +12,7 @@ RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@271483e6c4f884a2f49c246ca51490b94f5ff88b#egg=DistilTimeSeriesLoader --process-dependency-links
 RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@16b1be14cb80ff14a80cd5db99eb2057b44098e1#egg=DistilMIRanking --process-dependency-links
-RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@5088575c6af231167155dfd89094666ad7c8fb45 #egg=DistilFuzzyJoin --process-dependency-links
+RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@5088575c6af231167155dfd89094666ad7c8fb45#egg=DistilFuzzyJoin --process-dependency-links
 
 # done with pip - clear the cache out to save space
 RUN rm -rf /root/.cache/pip
