@@ -24,8 +24,9 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
         static_res_path = os.environ['STATIC_RESOURCE_PATH']
 
         # execute the pipeline against the data
+        dataset_uris = [input.dataset_uri for input in request.inputs]
         output = pe.execute_pipeline(request.pipelineDescription,
-                                     request.inputs[0].dataset_uri,
+                                     dataset_uris,
                                      static_res_path,
                                      verbose_primitive_output)
 
