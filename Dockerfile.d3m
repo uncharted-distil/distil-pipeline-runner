@@ -19,7 +19,7 @@ RUN pip install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api@dev-dis
 
 # NK Primitives
 RUN pip install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@3dc75dd177a20bd28ab7fc1262a177d4cd58f3c7#egg=CrocD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@5ec8cf9d0288bc1f581e7e44f1b61ce73ceaeefd#egg=PcafeaturesD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@768bedb72eafd7f4e7edb2913fa149da24592504#egg=PcafeaturesD3MWrapper --process-dependency-links
 RUN pip install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@9d2b45a8df2884939c6b65de1c1aa62f3ea9c1d6#egg=SimonD3MWrapper --process-dependency-links
 RUN pip install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@d663598850d14c8bccc2460e56e87a094f0830ed#egg=DukeD3MWrapper --process-dependency-links
 RUN pip install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@2c9bacb40f987f692ada5f0f12b9b56261be70fa#egg=UnicornD3MWrapper --process-dependency-links
