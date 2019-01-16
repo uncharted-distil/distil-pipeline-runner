@@ -18,10 +18,10 @@ RUN pip install -e git+https://gitlab.com/datadrivendiscovery/d3m.git@f34bf97e8f
 RUN pip install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api@dev-dist-python#egg=ta3ta2_utils --process-dependency-links
 
 # NK Primitives
-RUN pip install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@3dc75dd177a20bd28ab7fc1262a177d4cd58f3c7#egg=CrocD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@cbb6da10c3ae25a699a3ecc829b8a3866df57ee6#egg=CrocD3MWrapper --process-dependency-links
 RUN pip install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@768bedb72eafd7f4e7edb2913fa149da24592504#egg=PcafeaturesD3MWrapper --process-dependency-links
 RUN pip install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@9d2b45a8df2884939c6b65de1c1aa62f3ea9c1d6#egg=SimonD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@d663598850d14c8bccc2460e56e87a094f0830ed#egg=DukeD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@2c9bacb40f987f692ada5f0f12b9b56261be70fa#egg=UnicornD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@d3e2cb6f31b3a6954f79d97f148a3ec08495f7d5#egg=SlothD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@a12e6ba6c0b4d6a05fd2a5fc93f4fa28851d5b78#egg=GoatD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@98674d1524cf4a1cbb8cfec91dc3694393cf4e85#egg=DukeD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@cf523f5bb9dd658ff61b87a43b07e5eca6eea3dc#egg=UnicornD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@c0742cac9df0704b6cb6b15d0d48a45a0ef85736#egg=SlothD3MWrapper --process-dependency-links
+RUN pip install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@6c94c9bf3e5edacbd004a01fb69a14d744e93175#egg=GoatD3MWrapper --process-dependency-links
