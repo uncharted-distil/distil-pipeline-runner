@@ -20,13 +20,13 @@ $f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.0#d3m.primitives.datasets.Denormaliz
 produceRô
 ñ
 f
-$6c3188bf-322d-4f9b-bb91-68151bf1f17f0.1.0d3m.primitives.distil.FuzzyJoin"Fuzzy Join Placeholder
-right
-
-steps.1.produce
+$6c3188bf-322d-4f9b-bb91-68151bf1f17f0.1.0d3m.primitives.distil.FuzzyJoin"Fuzzy Join Placeholder
 left
 
-steps.0.produce	
+steps.0.produce
+right
+
+steps.1.produce	
 produce"
 left_col"
 *player_name" 

@@ -1,6 +1,6 @@
- *	duke_test2test duke data summary pipelineB
-inputJ
-outputssteps.1.produceRä
+ *	duke_test2test duke data summary pipelineB	
+input 0J
+	outputs 1steps.1.produceRä
 á
 »
 $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0*d3m.primitives.datasets.DatasetToDataFrame"Dataset to DataFrame converter*@85b946aa6123354fe51a288c3be56aaca82e76d4071c1edc13be6f9e0e100144
@@ -8,10 +8,10 @@ $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0*d3m.primitives.datasets.DatasetToD
 
 
 inputs.0	
-produceRÁ
-¾
-‘
-$46612a42-6120-3559-9db9-3aa9a76eb94f1.1.1d3m.primitives.distil.duke"duke*@ea522d2adc756c3ad76f5848d28cd396304d4dfdc0cc55aa8b90fbaf04e8fc30
+produceR}
+{
+O
+$46612a42-6120-3559-9db9-3aa9a76eb94f1.1.4d3m.primitives.distil.duke"duke
 inputs
 
 steps.0.produce	

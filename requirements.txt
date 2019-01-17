@@ -17,4 +17,4 @@ cython
 # Uncharted Primitives
 -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@b0eef1e99fef041b59029386f382789303eac369#egg=DistilTimeSeriesLoader --process-dependency-links
 -e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@fdf1cafd8dbff1c8fbacc8e984b6012a16b1d459#egg=DistilMIRanking --process-dependency-links
--e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@afd3a019ea8e2a7047cf4df919b833b6b27e7b77#egg=DistilFuzzyJoin --process-dependency-links
+-e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@9df0935a8f4950557a012cffd5b76d021218c1d0#egg=DistilFuzzyJoin --process-dependency-links
