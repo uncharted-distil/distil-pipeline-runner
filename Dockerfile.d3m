@@ -1,6 +1,6 @@
 FROM docker.uncharted.software/distil-pipeline-runner-env:latest
 
-RUN pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_md-2.0.0/en_core_web_md-2.0.0.tar.gz
+RUN pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_md-2.0.0/en_core_web_md-2.0.0.tar.gz
 
 # Using the requirements file results in a single cache layer for python packages and
 # dependencies, which makes the image build very slowly when a new python package is added.
@@ -12,16 +12,15 @@ RUN pip install https://github.com/explosion/spacy-models/releases/download/en_c
 # COPY requirements.txt ./requirements.txt
 # RUN pip3 install -r requirements.txt --process-dependency-links
 
-# D3M baseline packages - do this first because there are a lot of dependencies
-RUN pip install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@3bf21226aff90a826cf36b8b9694cedb81ff6357#egg=common_primitives --process-dependency-links
-RUN pip install -e git+https://gitlab.com/datadrivendiscovery/d3m.git@f34bf97e8fe4ce78397adcfc291ddca778a34b5f#egg=d3m --process-dependency-links
-RUN pip install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api@dev-dist-python#egg=ta3ta2_utils --process-dependency-links
+# D3M baseline packages - do this first because there are a lot of dependencies.  D3M core package is not needed because it is in the base image.
+RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@3bf21226aff90a826cf36b8b9694cedb81ff6357#egg=common_primitives --process-dependency-links --no-deps
+RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api@dev-dist-python#egg=ta3ta2_utils --process-dependency-links
 
 # NK Primitives
-RUN pip install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@88a62e6bc17e7def2af0e3a136407294757bf478#egg=CrocD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@768bedb72eafd7f4e7edb2913fa149da24592504#egg=PcafeaturesD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@9d2b45a8df2884939c6b65de1c1aa62f3ea9c1d6#egg=SimonD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@98674d1524cf4a1cbb8cfec91dc3694393cf4e85#egg=DukeD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@96c5eb004ce9d124c688765aedb3ab6fba54326c#egg=UnicornD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@c0742cac9df0704b6cb6b15d0d48a45a0ef85736#egg=SlothD3MWrapper --process-dependency-links
-RUN pip install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@6c94c9bf3e5edacbd004a01fb69a14d744e93175#egg=GoatD3MWrapper --process-dependency-links
+RUN pip3 install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@88a62e6bc17e7def2af0e3a136407294757bf478#egg=CrocD3MWrapper --process-dependency-links
+RUN pip3 install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@768bedb72eafd7f4e7edb2913fa149da24592504#egg=PcafeaturesD3MWrapper --process-dependency-links
+RUN pip3 install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@9d2b45a8df2884939c6b65de1c1aa62f3ea9c1d6#egg=SimonD3MWrapper --process-dependency-links
+RUN pip3 install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@98674d1524cf4a1cbb8cfec91dc3694393cf4e85#egg=DukeD3MWrapper --process-dependency-links
+RUN pip3 install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@c638e2fd908d77d120364d3e706917e46be892f5#egg=UnicornD3MWrapper --process-dependency-links
+RUN pip3 install -e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@c0742cac9df0704b6cb6b15d0d48a45a0ef85736#egg=SlothD3MWrapper --process-dependency-links
+RUN pip3 install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@6c94c9bf3e5edacbd004a01fb69a14d744e93175#egg=GoatD3MWrapper --process-dependency-links
