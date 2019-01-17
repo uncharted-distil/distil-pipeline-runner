@@ -1,6 +1,6 @@
- *	croc_test2#test croc object detection pipelineB
-inputJ
-outputssteps.2.produceR”
+ *	croc_test2#test croc object detection pipelineB	
+input 0J
+	outputs 2steps.2.produceR”
 –
 ™
 $f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.0#d3m.primitives.datasets.Denormalize"Denormalize datasets*@c39e3436373aed1944edbbc9b1cf24af5c71919d73bf0bb545cba0b685812df1
@@ -15,10 +15,10 @@ $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0*d3m.primitives.datasets.DatasetToD
 inputs
 
 steps.0.produce	
-produceRè
-å
-ë
-$404fae2a-2f0a-4c9b-9ad2-fb15289905611.2.2d3m.primitives.distil.croc"croc*@09cd99d609e317559feff580b8d893d0188f12915ab8d84a98de34eb344e340c
+produceRÃ
+…
+O
+$404fae2a-2f0a-4c9b-9ad2-fb15289905611.2.3d3m.primitives.distil.croc"croc
 inputs
 
 steps.1.produce	

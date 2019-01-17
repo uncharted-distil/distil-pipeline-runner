@@ -10,9 +10,9 @@ RUN chmod 0600 /root/.ssh/id_rsa
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@271483e6c4f884a2f49c246ca51490b94f5ff88b#egg=DistilTimeSeriesLoader --process-dependency-links
-RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@16b1be14cb80ff14a80cd5db99eb2057b44098e1#egg=DistilMIRanking --process-dependency-links
-RUN pip install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@db2fedbe108a1ebf61251c0840f3790edd373029#egg=DistilFuzzyJoin --process-dependency-links
+RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@b0eef1e99fef041b59029386f382789303eac369#egg=DistilTimeSeriesLoader --process-dependency-links
+RUN pip3 install -e git+https://github.com/unchartedsoftware/distil-mi-ranking.git@fdf1cafd8dbff1c8fbacc8e984b6012a16b1d459#egg=DistilMIRanking --process-dependency-links
+RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@9df0935a8f4950557a012cffd5b76d021218c1d0#egg=DistilFuzzyJoin --process-dependency-links
 
 # done with pip - clear the cache out to save space
 RUN rm -rf /root/.cache/pip
