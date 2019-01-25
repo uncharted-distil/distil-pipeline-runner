@@ -2,8 +2,8 @@
 cython
 
 # D3m baseline packages
--e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@3bf21226aff90a826cf36b8b9694cedb81ff6357#egg=common_primitives --process-dependency-links
--e git+https://gitlab.com/datadrivendiscovery/d3m.git@f34bf97e8fe4ce78397adcfc291ddca778a34b5f#egg=d3m --process-dependency-links
+-e git+https://gitlab.com/datadrivendiscovery/common-primitives.git#egg=common_primitives --process-dependency-links
+-e git+https://gitlab.com/datadrivendiscovery/d3m.git#egg=d3m --process-dependency-links
 -e ./proto/ta3ta2-api
 
 # New Knowledge Primitives
@@ -16,6 +16,6 @@ cython
 -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@6c94c9bf3e5edacbd004a01fb69a14d744e93175#egg=GoatD3MWrapper --process-dependency-links
 
 # Uncharted Primitives
--e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@b0eef1e99fef041b59029386f382789303eac369#egg=DistilTimeSeriesLoader --process-dependency-links
--e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@fdf1cafd8dbff1c8fbacc8e984b6012a16b1d459#egg=DistilMIRanking --process-dependency-links
--e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@580a8d863ffe651954a99e99e79cc2e283b5cce1#egg=DistilFuzzyJoin --process-dependency-links#egg=DistilFuzzyJoin --process-dependency-links
+-e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@5dd90e7426dab210d8312ec8cd9e01bb87fcf955#egg=DistilTimeSeriesLoader --process-dependency-links
+-e git+ssh://git@github.com/unchartedsoftware/distil-mi-ranking.git@7c47e32b492ef89aeac627a133b11f6699f1c22e#egg=DistilMIRanking --process-dependency-links
+-e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@0a9ecb2e557e6d69905ae047899903c6211a1674#egg=DistilFuzzyJoin --process-dependency-links#egg=DistilFuzzyJoin --process-dependency-links
