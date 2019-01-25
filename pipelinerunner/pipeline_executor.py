@@ -18,7 +18,7 @@ from d3m.metadata import base as metadata_base
 import frozendict
 
 _input_table: List[container.Dataset] = []
-_output_table: List[Dict[str, Any]] = []
+_output_table: Dict[int, Dict[str, Any]] = {}
 
 
 def _resolve_output(dataref: str) -> Any:
@@ -29,7 +29,6 @@ def _resolve_output(dataref: str) -> Any:
     if dataref_parts[0] == 'steps':
         # for references to other pipeline steps, pull from the outputs table which is
         # addressed by step index and output name
-        print(str(_output_table))
         return _output_table[int(dataref_parts[1])][dataref_parts[2]]
     return []
 
@@ -198,9 +197,9 @@ def _sort_pipeline_steps(pipeline: pipeline_pb2.PipelineDescription) -> List[pip
         _traverse_step(source_idx, child_lookup,  visited, processed)
 
     # reverse the processed list to get topologically sorted steps
-    ordered_steps = [pipeline.steps[idx] for idx in reversed(processed)]
-
-    print(str(ordered_steps))
+    # store the original index so that we can get back to the pipeline specification
+    # order
+    ordered_steps = [(idx, pipeline.steps[idx]) for idx in reversed(processed)]
 
     return ordered_steps
 
@@ -225,17 +224,21 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     _input_table.clear()
     _output_table.clear()
 
+    if debug:
+        print('\033[94mReceived pipeline: \n')
+        print(str(pipeline))
+        print('\033[0m\n')
+
     # load the input dataset and add it to the input table
     for dataset_filename in dataset_filenames:
-        input_dataset = container.Dataset.load(dataset_filenames[0])
+        input_dataset = container.Dataset.load(dataset_filename)
         _input_table.append(input_dataset)
 
     # perform a topological sort of the pipeline DAG to get an ordering that takes
     # dependencies into account
-    steps = _sort_pipeline_steps(pipeline)
+    sorted_steps = _sort_pipeline_steps(pipeline)
 
-    # steps = pipeline.steps
-    for step in steps:
+    for step_idx, step in sorted_steps:
         # load the primitive class
         path, name = step.primitive.primitive.python_path.rsplit('.', 1)
         module = importlib.import_module(path)
@@ -249,7 +252,7 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
             print('\033[94mExecuting primitive: ' + name)
             print('Hyperparams:')
             pprint.pprint(hyperparams)
-            print('\033[0m')
+            print('\033[0m\n')
 
         primitive = None
         if static_resources:
@@ -264,11 +267,11 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
             if type(result) is str:
                 raise Exception(result)
             else:
-                _output_table.append({output.id: result.value})
+                _output_table[step_idx] = {output.id: result.value}
 
             if debug:
                 print('Result:')
-                print(result.value)
+                print(str(result.value) + "\n")
     # extract the final output
     output_dataref = pipeline.outputs[0].data
     return _resolve_output(output_dataref)
