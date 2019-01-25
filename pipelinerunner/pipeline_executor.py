@@ -225,7 +225,7 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     _output_table.clear()
 
     if debug:
-        print('\033[94mReceived pipeline: \n')
+        print('\033[33mReceived pipeline: \n')
         print(str(pipeline))
         print('\033[0m\n')
 
