@@ -52,6 +52,17 @@ class ContainerArgument(google___protobuf___message___Message):
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
 
+class ContainerArguments(google___protobuf___message___Message):
+    data = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
+
+    def __init__(self,
+        data : typing___Optional[typing___Iterable[typing___Text]] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> ContainerArguments: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+
 class DataArgument(google___protobuf___message___Message):
     data = ... # type: typing___Text
 
@@ -117,9 +128,13 @@ class PrimitiveStepArgument(google___protobuf___message___Message):
     @property
     def data(self) -> DataArgument: ...
 
+    @property
+    def container_list(self) -> ContainerArguments: ...
+
     def __init__(self,
         container : typing___Optional[ContainerArgument] = None,
         data : typing___Optional[DataArgument] = None,
+        container_list : typing___Optional[ContainerArguments] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> PrimitiveStepArgument: ...
@@ -358,6 +373,7 @@ class PipelineDescription(google___protobuf___message___Message):
     context = ... # type: PipelineContext
     name = ... # type: typing___Text
     description = ... # type: typing___Text
+    digest = ... # type: typing___Text
 
     @property
     def source(self) -> PipelineSource: ...
@@ -388,6 +404,7 @@ class PipelineDescription(google___protobuf___message___Message):
         inputs : typing___Optional[typing___Iterable[PipelineDescriptionInput]] = None,
         outputs : typing___Optional[typing___Iterable[PipelineDescriptionOutput]] = None,
         steps : typing___Optional[typing___Iterable[PipelineDescriptionStep]] = None,
+        digest : typing___Optional[typing___Text] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> PipelineDescription: ...
