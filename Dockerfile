@@ -1,4 +1,5 @@
-FROM docker.uncharted.software/distil-pipeline-runner-d3m:latest
+ARG VERSION=latest
+FROM docker.uncharted.software/distil-pipeline-runner-d3m:$VERSION
 
 # Uncharted Primitives
 

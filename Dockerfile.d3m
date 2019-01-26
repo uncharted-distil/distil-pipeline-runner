@@ -1,4 +1,5 @@
-FROM docker.uncharted.software/distil-pipeline-runner-env:latest
+ARG VERSION=latest
+FROM docker.uncharted.software/distil-pipeline-runner-env:$VERSION
 
 RUN pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_md-2.0.0/en_core_web_md-2.0.0.tar.gz
 
