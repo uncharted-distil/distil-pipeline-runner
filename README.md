@@ -87,4 +87,4 @@ cd ../..
 ./gen_proto.sh
 ```
 
-The ta3ta2 submodule currently picks up the latest generated version of the ta3ta2 API, so this should only be necessary if `proto/execute.proto` is modified and needs to be rebuilt.
+This should only be necessary if `proto/execute.proto` is modified and needs to be rebuilt, or the `proto/ta3ta2-api` files have been moved to a new version.

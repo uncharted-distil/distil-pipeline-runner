@@ -15,6 +15,14 @@ RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries
 RUN pip3 install -e git+https://github.com/unchartedsoftware/distil-mi-ranking.git@7c47e32b492ef89aeac627a133b11f6699f1c22e#egg=DistilMIRanking --process-dependency-links
 RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@0a9ecb2e557e6d69905ae047899903c6211a1674#egg=DistilFuzzyJoin --process-dependency-links
 
+# The ta3ta2-api python package installs its own copy of the compiled protobuf files which
+# conflict with those generated for this project.  Python protobuf is supposed to allow for
+# multiple definitions of the same message as long as they are in different packages.  This not 
+# the case, so the suggested workaround is to force the use of the pure python protobuf impl, 
+# which doesn't enforce duplication checks as strictly as the binary implementation. 
+RUN pip3 uninstall -y protobuf
+RUN pip3 install --no-binary=protobuf protobuf
+
 # done with pip - clear the cache out to save space
 RUN rm -rf /root/.cache/pip
 

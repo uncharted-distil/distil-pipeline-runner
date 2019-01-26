@@ -4,7 +4,7 @@ cython
 # D3m baseline packages
 -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git#egg=common_primitives --process-dependency-links
 -e git+https://gitlab.com/datadrivendiscovery/d3m.git#egg=d3m --process-dependency-links
--e ./proto/ta3ta2-api
+-e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api@dev-dist-python#egg=ta3ta2_utils --process-dependency-links
 
 # New Knowledge Primitives
 -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@88a62e6bc17e7def2af0e3a136407294757bf478#egg=CrocD3MWrapper --process-dependency-links
