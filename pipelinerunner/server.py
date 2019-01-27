@@ -25,19 +25,23 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
 
         # execute the pipeline against the data
         dataset_uris = [input.dataset_uri for input in request.inputs]
-        output = pe.execute_pipeline(request.pipelineDescription,
-                                     dataset_uris,
-                                     static_res_path,
-                                     verbose_primitive_output)
+        try:
+            output = pe.execute_pipeline(request.pipelineDescription,
+                                        dataset_uris,
+                                        static_res_path,
+                                        verbose_primitive_output)
 
-        # get output dir
-        output_path = self.get_output_path()
+            # get output dir
+            output_path = self.get_output_path()
 
-        # write output
-        self.write_output(output_path, output)
+            # write output
+            self.write_output(output_path, output)
 
-        # return response with output path
-        return execute_pb2.PipelineExecuteResponse(resultURI=output_path)
+            # return response with output path
+            return execute_pb2.PipelineExecuteResponse(resultURI=output_path)
+        except Exception as ex:
+            print(ex)
+            raise ex
 
     def write_output(self, output_path: str, output: pd.DataFrame) -> None:
         directory = os.path.dirname(output_path)
@@ -51,6 +55,11 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
 
 
 def serve() -> None:
+
+    print('home exists: ' + str(os.path.exists("/home/chris")))
+    print('datamart exists: ' + str(os.path.exists("/home/chris/dev/go_workspace/src/github.com/unchartedsoftware/distil/datamart")))
+    print( 'datamart contents: ' + str(os.listdir('/home/chris/dev/go_workspace/src/github.com/unchartedsoftware/distil/datamart')))    
+
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     execute_pb2_grpc.add_ExecutorServicer_to_server(
         ExecuteService(), server)
