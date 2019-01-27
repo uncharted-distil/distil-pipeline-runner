@@ -14,7 +14,7 @@ cython
 -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@96c5eb004ce9d124c688765aedb3ab6fba54326c#egg=UnicornD3MWrapper --process-dependency-links
 -e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@c0742cac9df0704b6cb6b15d0d48a45a0ef85736#egg=SlothD3MWrapper --process-dependency-links
 -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@6c94c9bf3e5edacbd004a01fb69a14d744e93175#egg=GoatD3MWrapper --process-dependency-links
--e git+https://github.com/NewKnowledge/datacleaning-d3m-wrapper.git@96be7729af9078474268d11710e4d2a15405e8d0#egg=DataCleaningD3MWrapper --process-dependency-links
+-e git+https://github.com/cdbethune/datacleaning-d3m-wrapper.git@f5e06b7fc0f16deba6b7debb53beee6f9f2d0efa#egg=DataCleaningD3MWrapper --process-dependency-links
 
 # Uncharted Primitives
 -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@5dd90e7426dab210d8312ec8cd9e01bb87fcf955#egg=DistilTimeSeriesLoader --process-dependency-links
