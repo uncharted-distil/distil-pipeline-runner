@@ -55,11 +55,6 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
 
 
 def serve() -> None:
-
-    print('home exists: ' + str(os.path.exists("/home/chris")))
-    print('datamart exists: ' + str(os.path.exists("/home/chris/dev/go_workspace/src/github.com/unchartedsoftware/distil/datamart")))
-    print( 'datamart contents: ' + str(os.listdir('/home/chris/dev/go_workspace/src/github.com/unchartedsoftware/distil/datamart')))    
-
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     execute_pb2_grpc.add_ExecutorServicer_to_server(
         ExecuteService(), server)
