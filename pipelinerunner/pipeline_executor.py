@@ -252,6 +252,8 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
             print('\033[94mExecuting primitive: ' + name)
             print('Hyperparams:')
             pprint.pprint(hyperparams)
+            print('Static Resources:')
+            pprint.pprint(static_resources)
             print('\033[0m\n')
 
         primitive = None

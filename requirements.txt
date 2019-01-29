@@ -9,11 +9,12 @@ cython
 # New Knowledge Primitives
 -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@88a62e6bc17e7def2af0e3a136407294757bf478#egg=CrocD3MWrapper --process-dependency-links
 -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@768bedb72eafd7f4e7edb2913fa149da24592504#egg=PcafeaturesD3MWrapper --process-dependency-links
--e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@9d2b45a8df2884939c6b65de1c1aa62f3ea9c1d6#egg=SimonD3MWrapper --process-dependency-links
--e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@98674d1524cf4a1cbb8cfec91dc3694393cf4e85#egg=DukeD3MWrapper --process-dependency-links
+-e git+https://github.com/cdbethune/simon-d3m-wrapper.git@90e49da54a8a63917b5ee65962022b80007438ed#egg=SimonD3MWrapper --process-dependency-links
+-e git+https://github.com/cdbethune/duke-d3m-wrapper.git@047185379a70973cc04f0bb5cce39eb3fb8b297f#egg=DukeD3MWrapper --process-dependency-links
 -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@96c5eb004ce9d124c688765aedb3ab6fba54326c#egg=UnicornD3MWrapper --process-dependency-links
--e git+https://github.com/NewKnowledge/sloth-d3m-wrapper.git@c0742cac9df0704b6cb6b15d0d48a45a0ef85736#egg=SlothD3MWrapper --process-dependency-links
+-e git+https://github.com/cdbethune/sloth-d3m-wrapper.git@d0c1868b96651013e6f49696331d8800d79d85a9#egg=SlothD3MWrapper --process-dependency-links
 -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@6c94c9bf3e5edacbd004a01fb69a14d744e93175#egg=GoatD3MWrapper --process-dependency-links
+-e git+https://github.com/cdbethune/datacleaning-d3m-wrapper.git@f5e06b7fc0f16deba6b7debb53beee6f9f2d0efa#egg=DataCleaningD3MWrapper --process-dependency-links
 
 # Uncharted Primitives
 -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@5dd90e7426dab210d8312ec8cd9e01bb87fcf955#egg=DistilTimeSeriesLoader --process-dependency-links
