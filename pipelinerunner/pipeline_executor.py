@@ -19,9 +19,13 @@ from d3m.metadata import base as metadata_base
 import frozendict
 
 _logger = logging.getLogger(__name__)
+
 _input_table: List[container.Dataset] = []
 _output_table: Dict[int, Dict[str, Any]] = {}
 
+# cache of instantiated primitives - loading can be a slow process so we want to
+# do it once for the life time of the runner
+_primitive_cache: Dict[str, Any] = {}
 
 def _resolve_output(dataref: str) -> Any:
     dataref_parts = dataref.split(".")
@@ -236,9 +240,17 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
 
     for step_idx, step in sorted_steps:
         # load the primitive class
-        path, name = step.primitive.primitive.python_path.rsplit('.', 1)
-        module = importlib.import_module(path)
-        primitive_class = getattr(module, name)
+        python_path = step.primitive.primitive.python_path 
+        primitive_class = None
+        if python_path not in _primitive_cache.keys():
+            _logger.info("Primitive " + python_path + " not cached.  Loading.")
+            path, name = python_path.rsplit('.', 1)
+            module = importlib.import_module(path)
+            primitive_class = getattr(module, name)
+            _primitive_cache[python_path] = primitive_class
+        else:
+            _logger.info("Using cached primitive " + python_path)
+            primitive_class = _primitive_cache[python_path] 
 
         # get the static resource table, hyperparams, and instantiate the primitive
         static_resources = _get_static_resources(primitive_class, static_resource_path)
