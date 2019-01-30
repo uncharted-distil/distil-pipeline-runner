@@ -2,6 +2,8 @@ import time
 from concurrent import futures
 import os
 from typing import List, Dict, Any, Optional
+import logging
+import logging.config
 
 import grpc
 import uuid
@@ -10,26 +12,29 @@ import pandas as pd
 import execute_pb2
 import execute_pb2_grpc
 import pipeline_executor as pe
+import logging
+import datetime
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
+_logger = logging.getLogger(__name__)
 
 class ExecuteService(execute_pb2_grpc.ExecutorServicer):
 
     def ExecutePipeline(self,
                         request: execute_pb2.PipelineExecuteRequest,
                         context: grpc.RpcContext) -> execute_pb2.PipelineExecuteResponse:
-        print("Executing pipeline", request)
-        verbose_primitive_output = False if os.environ.get('VERBOSE_PRIMITIVE_OUTPUT') is None else True
         static_res_path = os.environ['STATIC_RESOURCE_PATH']
+
+
+        _logger.info('Received execute request: \n' + str(request))
 
         # execute the pipeline against the data
         dataset_uris = [input.dataset_uri for input in request.inputs]
         try:
             output = pe.execute_pipeline(request.pipelineDescription,
                                         dataset_uris,
-                                        static_res_path,
-                                        verbose_primitive_output)
+                                        static_res_path)
 
             # get output dir
             output_path = self.get_output_path()
@@ -39,11 +44,13 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
 
             # return response with output path
             return execute_pb2.PipelineExecuteResponse(resultURI=output_path)
+        
         except Exception as ex:
-            print(ex)
+            _logger.exception(ex)
             raise ex
 
     def write_output(self, output_path: str, output: pd.DataFrame) -> None:
+        _logger.info('serializing output to ' + output_path)
         directory = os.path.dirname(output_path)
         if not os.path.isdir(directory):
             os.makedirs(directory, exist_ok=True)
@@ -55,18 +62,26 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
 
 
 def serve() -> None:
+    verbose = os.environ['VERBOSE_PRIMITIVE_OUTPUT']
+  
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     execute_pb2_grpc.add_ExecutorServicer_to_server(
         ExecuteService(), server)
     server.add_insecure_port('[::]:50051')
-    print("Starting gRPC server")
+    _logger.info("Starting gRPC server")
     server.start()
     try:
         while True:
             time.sleep(_ONE_DAY_IN_SECONDS)
     except KeyboardInterrupt:
         server.stop(0)
+    _logger.info("Stopping gRPC server")
 
 
 if __name__ == '__main__':
+
+    verbose = os.environ['VERBOSE_PRIMITIVE_OUTPUT']
+    level = logging.DEBUG if verbose else logging.INFO
+    logging.basicConfig(level=level)
+
     serve()

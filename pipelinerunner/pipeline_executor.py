@@ -5,6 +5,7 @@ import os
 from typing import List, Dict, Set, Any, Optional
 from concurrent import futures
 import pprint
+import logging
 
 import importlib
 import pipeline_pb2
@@ -17,6 +18,7 @@ from d3m.metadata import base as metadata_base
 
 import frozendict
 
+_logger = logging.getLogger(__name__)
 _input_table: List[container.Dataset] = []
 _output_table: Dict[int, Dict[str, Any]] = {}
 
@@ -43,7 +45,7 @@ def _get_input(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep) ->
 
 
 def _get_hyperparameters(primitive_step: pipeline_pb2.PrimitivePipelineDescriptionStep,
-                         primitive_class: frozendict.FrozenOrderedDict) -> Any:
+                         primitive_class: frozendict.FrozenOrderedDict) -> Dict[str, Any]:
     # parse out hyperparameter structures and initialize with defaults
     primitive_hyperparams_class = \
         primitive_class.metadata.query()['primitive_code']['class_type_arguments']['Hyperparams']
@@ -206,8 +208,7 @@ def _sort_pipeline_steps(pipeline: pipeline_pb2.PipelineDescription) -> List[pip
 
 def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
                      dataset_filenames: List[str],
-                     static_resource_path: Optional[str] = None,
-                     debug: bool = False) -> Any:
+                     static_resource_path: Optional[str] = None) -> Any:
     """
         Executes a binary protobuf pipeline against a supplied d3m dataset.
 
@@ -221,14 +222,9 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     The result of the pipeline execution.
     """
 
-    _input_table.clear()
+    _input_table.clear()                                                                                                                                                                                
     _output_table.clear()
-
-    if debug:
-        print('\033[33mReceived pipeline: \n')
-        print(str(pipeline))
-        print('\033[0m\n')
-
+    
     # load the input dataset and add it to the input table
     for dataset_filename in dataset_filenames:
         input_dataset = container.Dataset.load(dataset_filename)
@@ -248,13 +244,9 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
         static_resources = _get_static_resources(primitive_class, static_resource_path)
         hyperparams = _get_hyperparameters(step.primitive, primitive_class)
 
-        if debug:
-            print('\033[94mExecuting primitive: ' + name)
-            print('Hyperparams:')
-            pprint.pprint(hyperparams)
-            print('Static Resources:')
-            pprint.pprint(static_resources)
-            print('\033[0m\n')
+        _logger.info('Executing primitive ' + path + '.' + name)
+        _logger.info('Hyperparams:\n ' + pprint.pformat(hyperparams))
+        _logger.info('Resources:\n ' + pprint.pformat(static_resources))
 
         primitive = None
         if static_resources:
@@ -266,14 +258,10 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
         for output in step.primitive.outputs:
             input_data = _get_input(step.primitive)
             result = getattr(primitive, output.id)(**input_data)
-            if type(result) is str:
-                raise Exception(result)
-            else:
-                _output_table[step_idx] = {output.id: result.value}
+            _output_table[step_idx] = {output.id: result.value}
 
-            if debug:
-                print('Result:')
-                print(str(result.value) + "\n")
+            _logger.debug('Result\n' + str(result.value))
+
     # extract the final output
     output_dataref = pipeline.outputs[0].data
     return _resolve_output(output_dataref)
@@ -281,8 +269,7 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
 
 def execute_pipeline_file(pipeline_filename: str,
                           dataset_filenames: List[str],
-                          static_resource_path: str = None,
-                          debug: bool = False) -> Any:
+                          static_resource_path: str = None) -> Any:
     """
         Executes a binary protobuf pipeline against a supplied d3m dataset.
 
@@ -298,4 +285,5 @@ def execute_pipeline_file(pipeline_filename: str,
 
     # load the protobuf pipeline def
     pipeline = _load_pipeline(pipeline_filename)
-    return execute_pipeline(pipeline, dataset_filenames, static_resource_path, debug)
+    _logger.info('Executing pipeline: \n' + str(pipeline))        
+    return execute_pipeline(pipeline, dataset_filenames, static_resource_path)
