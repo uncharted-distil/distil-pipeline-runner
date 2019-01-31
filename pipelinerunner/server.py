@@ -62,8 +62,6 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
 
 
 def serve() -> None:
-    verbose = os.environ['VERBOSE_PRIMITIVE_OUTPUT']
-  
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     execute_pb2_grpc.add_ExecutorServicer_to_server(
         ExecuteService(), server)
@@ -78,10 +76,8 @@ def serve() -> None:
     _logger.info("Stopping gRPC server")
 
 
-if __name__ == '__main__':
-
-    verbose = os.environ['VERBOSE_PRIMITIVE_OUTPUT']
-    level = logging.DEBUG if verbose else logging.INFO
+if __name__ == '__main__':    
+    level = logging.DEBUG if 'VERBOSE_PRIMITIVE_OUTPUT' in os.environ else logging.INFO
     logging.basicConfig(level=level)
 
     serve()
