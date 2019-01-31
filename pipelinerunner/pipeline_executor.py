@@ -242,9 +242,9 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
         # load the primitive class
         python_path = step.primitive.primitive.python_path 
         primitive_class = None
+        path, name = python_path.rsplit('.', 1)
         if python_path not in _primitive_cache.keys():
             _logger.info("Primitive " + python_path + " not cached.  Loading.")
-            path, name = python_path.rsplit('.', 1)
             module = importlib.import_module(path)
             primitive_class = getattr(module, name)
             _primitive_cache[python_path] = primitive_class
