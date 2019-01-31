@@ -16,7 +16,7 @@ RUN pip3 install grpcio==1.16.1
 
 RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@5dd90e7426dab210d8312ec8cd9e01bb87fcf955#egg=DistilTimeSeriesLoader --process-dependency-links
 RUN pip3 install -e git+https://github.com/unchartedsoftware/distil-mi-ranking.git@7c47e32b492ef89aeac627a133b11f6699f1c22e#egg=DistilMIRanking --process-dependency-links
-RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@02b296caf2ce064a3b4e407e28e373eb04b36df26#egg=DistilFuzzyJoin --process-dependency-links
+RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@2b296caf2ce064a3b4e407e28e373eb04b36df26#egg=DistilFuzzyJoin --process-dependency-links
 
 # The ta3ta2-api python package installs its own copy of the compiled protobuf files which
 # conflict with those generated for this project.  Python protobuf is supposed to allow for
