@@ -23,6 +23,7 @@ Install wheel
 ```bash
 pip3 install wheel
 ```
+
 Update pip3 and setuptools
 
 ```bash
@@ -36,7 +37,12 @@ Setup GRPC:
 pip3 install grpcio
 pip3 install grpcio-tools googleapis-common-protos
 pip3 install mypy-protobuf
+
+# bug in binary grpc with name collisions - force use of software version
+pip3 uninstall grpc -y protobuf
+pip3 install --no-binary=protobuf protobuf
 ```
+
 Clone this directory, and from the project root pull the TA3TA2 API files:
 
 ```shell
