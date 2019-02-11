@@ -11,18 +11,15 @@ RUN chmod 0600 /root/.ssh/id_rsa
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-# fix logging config issue
-RUN pip3 install grpcio==1.16.1
-
 RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@5dd90e7426dab210d8312ec8cd9e01bb87fcf955#egg=DistilTimeSeriesLoader --process-dependency-links
 RUN pip3 install -e git+https://github.com/unchartedsoftware/distil-mi-ranking.git@7c47e32b492ef89aeac627a133b11f6699f1c22e#egg=DistilMIRanking --process-dependency-links
 RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@4e860b2d9f3aa44a90a0381677aa396d265e47f7#egg=DistilFuzzyJoin --process-dependency-links
 
 # The ta3ta2-api python package installs its own copy of the compiled protobuf files which
 # conflict with those generated for this project.  Python protobuf is supposed to allow for
-# multiple definitions of the same message as long as they are in different packages.  This not 
-# the case, so the suggested workaround is to force the use of the pure python protobuf impl, 
-# which doesn't enforce duplication checks as strictly as the binary implementation. 
+# multiple definitions of the same message as long as they are in different packages.  This not
+# the case, so the suggested workaround is to force the use of the pure python protobuf impl,
+# which doesn't enforce duplication checks as strictly as the binary implementation.
 RUN pip3 uninstall -y protobuf
 RUN pip3 install --no-binary=protobuf protobuf
 
