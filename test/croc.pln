@@ -15,18 +15,18 @@ $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0>d3m.primitives.data_transformation
 inputs
 
 steps.0.produce	
-produceRÌ
-É
-O
-$404fae2a-2f0a-4c9b-9ad2-fb15289905611.2.3d3m.primitives.distil.croc"croc
+produceR¥
+¢
+§
+$404fae2a-2f0a-4c9b-9ad2-fb15289905611.2.31d3m.primitives.digital_image_processing.croc.Croc"croc*?a0cd922401d96b8ffbfe11f5db188b6a4d410119319392932e417b706ed5ae6
 inputs
 
 steps.1.produce	
-produce"$
-output_labels"
-:
-	*objects"&
+produce"&
 target_columns"
 :
 
-*filename
+*filename"$
+output_labels"
+:
+	*objects
