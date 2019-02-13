@@ -17,4 +17,5 @@ STATIC_RESOURCE_PATH=/data/static_resources
 DATAMART_PATH=/data/datamart
 
 # Private GitHub repo key locations
-SSH_KEY_LOC=/home/ubuntu/keys/distil-timeseries-loader_rsa
+SSH_KEY_LOC=~/keys/d3mbuild/distil-pipeline-runner-build/distil-pipeline-runner-build_rsa
+
