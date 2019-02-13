@@ -10,6 +10,7 @@ docker build \
 
 docker build \
     -f ../Dockerfile.d3m \
+    --squash \
     --build-arg VERSION=${DOCKER_IMAGE_VERSION} \
     --tag docker.uncharted.software/$DOCKER_IMAGE_NAME-d3m:${DOCKER_IMAGE_VERSION} \
     --tag docker.uncharted.software/$DOCKER_IMAGE_NAME-d3m:latest ..

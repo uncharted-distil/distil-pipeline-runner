@@ -14,9 +14,9 @@ FROM docker.uncharted.software/distil-pipeline-runner-env:$VERSION
 # D3M baseline packages - do this first because there are a lot of dependencies.
 # Common primitives has a lot of dependencies that aren't used, so we stop transitive resolution.  Torch is
 # the only that is required due to its use in a shared utilities function.
-RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@7ca057cdf6f3e22018fd0764210758131a63b9e1#egg=common_primitives --process-dependency-links --no-deps & \
-    pip3 install torch==1.0.0 & \
-    pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api.git@aac29424d864576694af5988e7391819d3c4c166#egg=ta3ta2_utils --process-dependency-links
+RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@7ca057cdf6f3e22018fd0764210758131a63b9e1#egg=common_primitives --process-dependency-links --no-deps && \
+    pip3 install torch==1.0.0 && \
+    pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api.git@aac29424d864576694af5988e7391819d3c4c166#egg=ta3ta2_utils --process-dependency-links;
 
 # NK Primitives
 RUN pip3 install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@903ea261a3959bd7ee2a3fe78273437d351cf636#egg=PcafeaturesD3MWrapper --process-dependency-links

@@ -20,8 +20,8 @@ RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join
 # multiple definitions of the same message as long as they are in different packages.  This not
 # the case, so the suggested workaround is to force the use of the pure python protobuf impl,
 # which doesn't enforce duplication checks as strictly as the binary implementation.
-RUN pip3 uninstall -y protobuf
-RUN pip3 install --no-binary=protobuf protobuf
+RUN pip3 uninstall -y protobuf && \
+    pip3 install --no-binary=protobuf protobuf;
 
 # done with pip - clear the cache out to save space
 RUN rm -rf /root/.cache/pip
