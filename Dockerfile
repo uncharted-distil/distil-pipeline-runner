@@ -11,7 +11,7 @@ RUN chmod 0600 /root/.ssh/id_rsa
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@5dd90e7426dab210d8312ec8cd9e01bb87fcf955#egg=DistilTimeSeriesLoader --process-dependency-links
+RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-timeseries-loader.git@87b17ae75f85cb96c7043fbababb6005d99dc853#egg=DistilTimeSeriesLoader --process-dependency-links
 RUN pip3 install -e git+https://github.com/unchartedsoftware/distil-mi-ranking.git@7c47e32b492ef89aeac627a133b11f6699f1c22e#egg=DistilMIRanking --process-dependency-links
 RUN pip3 install -e git+ssh://git@github.com/unchartedsoftware/distil-fuzzy-join.git@4e860b2d9f3aa44a90a0381677aa396d265e47f7#egg=DistilFuzzyJoin --process-dependency-links
 
