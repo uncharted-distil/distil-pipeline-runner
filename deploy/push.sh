@@ -2,9 +2,9 @@
 
 source ./config.sh
 
-docker login docker.uncharted.software
+docker login $DOCKER_REPO
 
-docker push docker.uncharted.software/$DOCKER_IMAGE_NAME:${DOCKER_IMAGE_VERSION}
-docker push docker.uncharted.software/$DOCKER_IMAGE_NAME:latest
+docker push $DOCKER_REPO/$DOCKER_IMAGE_NAME:${DOCKER_IMAGE_VERSION}
+docker push $DOCKER_REPO/$DOCKER_IMAGE_NAME:latest
 
-docker logout docker.uncharted.software
+docker logout $DOCKER_REPO

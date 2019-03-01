@@ -1,5 +1,5 @@
 ARG VERSION=latest
-FROM docker.uncharted.software/distil-pipeline-runner-env:$VERSION
+FROM $DOCKER_REPO/distil-pipeline-runner-env:$VERSION
 
 # Using the requirements file results in a single cache layer for python packages and
 # dependencies, which makes the image build very slowly when a new python package is added.
