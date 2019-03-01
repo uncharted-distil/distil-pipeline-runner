@@ -1,5 +1,5 @@
 ARG VERSION=latest
-FROM docker.uncharted.software/distil-pipeline-runner-d3m:$VERSION
+FROM $DOCKER_REPO/distil-pipeline-runner-d3m:$VERSION
 
 # Uncharted Primitives
 

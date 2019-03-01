@@ -17,4 +17,4 @@ docker run \
     -v $D3MOUTPUTDIR:$D3MOUTPUTDIR \
     -v $STATIC_RESOURCE_PATH:$STATIC_RESOURCE_PATH \
     -v $DATAMART_PATH:$DATAMART_PATH \
-    docker.uncharted.software/$DOCKER_IMAGE_NAME:latest
+    $DOCKER_REPO/$DOCKER_IMAGE_NAME:latest
