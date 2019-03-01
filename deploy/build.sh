@@ -12,13 +12,14 @@ docker build \
     -f ../Dockerfile.d3m \
     --squash \
     --build-arg VERSION=${DOCKER_IMAGE_VERSION} \
+    --build-arg DOCKER_REPO=${DOCKER_REPO} \
     --tag $DOCKER_REPO/$DOCKER_IMAGE_NAME-d3m:${DOCKER_IMAGE_VERSION} \
     --tag $DOCKER_REPO/$DOCKER_IMAGE_NAME-d3m:latest ..
 
 docker build \
     -f ../Dockerfile \
     --squash \
-    --build-arg SSH_KEY="$(cat $SSH_KEY_LOC)" \
     --build-arg VERSION=${DOCKER_IMAGE_VERSION} \
+    --build-arg DOCKER_REPO=${DOCKER_REPO} \
     --tag $DOCKER_REPO/$DOCKER_IMAGE_NAME:${DOCKER_IMAGE_VERSION} \
     --tag $DOCKER_REPO/$DOCKER_IMAGE_NAME:latest ..

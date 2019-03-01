@@ -16,8 +16,5 @@ STATIC_RESOURCE_PATH=/data/static_resources
 # D3M datamart directory
 DATAMART_PATH=/data/datamart
 
-# Private GitHub repo key locations
-SSH_KEY_LOC=~/keys/d3mbuild/distil-pipeline-runner-build/distil-pipeline-runner-build_rsa
-
 # address of the docker repo
 DOCKER_REPO=docker.uncharted.software

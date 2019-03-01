@@ -1,4 +1,5 @@
 ARG VERSION=latest
+ARG DOCKER_REPO
 FROM $DOCKER_REPO/distil-pipeline-runner-env:$VERSION
 
 # Using the requirements file results in a single cache layer for python packages and
