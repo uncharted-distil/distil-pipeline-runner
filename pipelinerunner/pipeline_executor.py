@@ -1,5 +1,21 @@
 #!/bin/bash
 
+"""
+   Copyright © 2019 Uncharted Software Inc.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+"""
+
 import time
 import os
 from typing import List, Dict, Set, Any, Optional
@@ -226,9 +242,9 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     The result of the pipeline execution.
     """
 
-    _input_table.clear()                                                                                                                                                                                
+    _input_table.clear()
     _output_table.clear()
-    
+
     # load the input dataset and add it to the input table
     for dataset_filename in dataset_filenames:
         input_dataset = container.Dataset.load(dataset_filename)
@@ -240,7 +256,7 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
 
     for step_idx, step in sorted_steps:
         # load the primitive class
-        python_path = step.primitive.primitive.python_path 
+        python_path = step.primitive.primitive.python_path
         primitive_class = None
         path, name = python_path.rsplit('.', 1)
         if python_path not in _primitive_cache.keys():
@@ -250,7 +266,7 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
             _primitive_cache[python_path] = primitive_class
         else:
             _logger.info("Using cached primitive " + python_path)
-            primitive_class = _primitive_cache[python_path] 
+            primitive_class = _primitive_cache[python_path]
 
         # get the static resource table, hyperparams, and instantiate the primitive
         static_resources = _get_static_resources(primitive_class, static_resource_path)
@@ -297,5 +313,5 @@ def execute_pipeline_file(pipeline_filename: str,
 
     # load the protobuf pipeline def
     pipeline = _load_pipeline(pipeline_filename)
-    _logger.info('Executing pipeline: \n' + str(pipeline))        
+    _logger.info('Executing pipeline: \n' + str(pipeline))
     return execute_pipeline(pipeline, dataset_filenames, static_resource_path)
