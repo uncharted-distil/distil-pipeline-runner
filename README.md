@@ -46,7 +46,7 @@ pip3 install --no-binary=protobuf protobuf
 Clone this directory, and from the project root pull the TA3TA2 API files:
 
 ```shell
-git clone github@github.com:unchartedsoftware/distil-pipeline-runner.git
+git clone github@github.com:uncharted-distil/distil-pipeline-runner.git
 git submodule init
 git submodule update
 cd distil-pipeline-runner
