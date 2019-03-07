@@ -70,7 +70,14 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
         directory = os.path.dirname(output_path)
         if not os.path.isdir(directory):
             os.makedirs(directory, exist_ok=True)
-        output.to_csv(output_path)
+        if hasattr(output, 'metadata'):
+            # build the header from the metadata field name
+            column_names = []
+            for column_index in range(len(output.columns)):
+                column_names.append(output.metadata.query_column(column_index).get('name', output.columns[column_index]))
+            output.to_csv(output_path, header=column_names)
+        else:
+            output.to_csv(output_path)
 
     def get_output_path(self) -> str:
         output_dir = os.environ['D3MOUTPUTDIR']
