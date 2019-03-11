@@ -28,3 +28,7 @@ RUN pip3 install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@230
 RUN pip3 install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@b91dcdba6b8ee51384138bc97dd14521baad9f75#egg=UNICORNd3mWrapper --process-dependency-links
 RUN pip3 install -e git+https://github.com/NewKnowledge/TimeSeries-D3M-Wrappers.git@a5fd924060910ecebc09579536741e5a7b4ad117#egg=TimeSeriesD3MWrappers --process-dependency-links
 RUN pip3 install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@08ee747242856093d93f9d692fab4fd6b7d79e2c#egg=GoatD3MWrapper --process-dependency-links
+
+# ISI Primitives
+
+RUN pip3 install -e git+https://github.com/usc-isi-i2/dsbox-cleaning.git@4f5a7244aee91e92d932d1f4e1ee8872b0f5c196#egg=DSBoxCleaning --process-dependency-links
