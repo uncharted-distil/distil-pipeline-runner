@@ -3,7 +3,7 @@ cython
 
 # D3m baseline packages
 -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git#egg=common_primitives --process-dependency-links
--e git+https://gitlab.com/datadrivendiscovery/d3m.git#egg=d3m --process-dependency-links
+-e git+https://gitlab.com/datadrivendiscovery/d3m.git@ec8cc9f36146c5324b027fd6be4e91e963cf2571#egg=d3m --process-dependency-links
 -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api@dev-dist-python#egg=ta3ta2_utils --process-dependency-links
 
 # New Knowledge Primitives
