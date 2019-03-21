@@ -32,3 +32,4 @@ RUN pip3 install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@08e
 # ISI Primitives
 
 RUN pip3 install -e git+https://github.com/usc-isi-i2/dsbox-cleaning.git@4f5a7244aee91e92d932d1f4e1ee8872b0f5c196#egg=DSBoxCleaning --process-dependency-links
+RUN pip3 install datamart
