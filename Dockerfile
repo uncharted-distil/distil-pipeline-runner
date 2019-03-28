@@ -25,7 +25,7 @@ COPY proto ./proto
 COPY test ./test
 
 ENV D3MOUTPUTDIR=/usr/local/d3m/output
-ENV STATIC_RESOURCE_PATH=/usr/local/d3m/static_resources
+ENV D3MSTATICDIR=/usr/local/d3m/static_resources
 ENV PYTHONUNBUFFERED 1
 ENV LD_LIBRARY_PATH=/usr/local/lib
 
