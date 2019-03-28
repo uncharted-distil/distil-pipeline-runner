@@ -17,7 +17,7 @@ FROM $DOCKER_REPO/distil-pipeline-runner-env:$VERSION
 # the only that is required due to its use in a shared utilities function.
 RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@bfb1c37ee2b43b785cdbcfb3acc13d19a4f9a474#egg=common_primitives --process-dependency-links --no-deps && \
     pip3 install torch==1.0.0 && \
-    pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api.git@7c5f8b30c8002042cfb9c1f14629909d430daebc#egg=ta3ta2_utils --process-dependency-links;
+    pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api.git@dist-python#egg=ta3ta2_utils --process-dependency-links;
 
 # NK Primitives
 RUN pip3 install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@903ea261a3959bd7ee2a3fe78273437d351cf636#egg=PcafeaturesD3MWrapper --process-dependency-links
