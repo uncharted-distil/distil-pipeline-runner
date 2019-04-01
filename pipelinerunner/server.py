@@ -40,7 +40,7 @@ class ExecuteService(execute_pb2_grpc.ExecutorServicer):
     def ExecutePipeline(self,
                         request: execute_pb2.PipelineExecuteRequest,
                         context: grpc.RpcContext) -> execute_pb2.PipelineExecuteResponse:
-        static_res_path = os.environ['STATIC_RESOURCE_PATH']
+        static_res_path = os.environ['D3MSTATICDIR']
 
 
         _logger.info('Received execute request: \n' + str(request))
