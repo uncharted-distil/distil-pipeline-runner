@@ -15,21 +15,21 @@ FROM $DOCKER_REPO/distil-pipeline-runner-env:$VERSION
 # D3M baseline packages - do this first because there are a lot of dependencies.
 # Common primitives has a lot of dependencies that aren't used, so we stop transitive resolution.  Torch is
 # the only that is required due to its use in a shared utilities function.
-RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@bfb1c37ee2b43b785cdbcfb3acc13d19a4f9a474#egg=common_primitives --process-dependency-links --no-deps && \
+RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@bfb1c37ee2b43b785cdbcfb3acc13d19a4f9a474#egg=common_primitives --no-deps && \
     pip3 install torch==1.0.0 && \
-    pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api.git@dist-python#egg=ta3ta2_utils --process-dependency-links;
+    pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api.git@dist-python#egg=ta3ta2_utils;
 
 # NK Primitives
-RUN pip3 install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@903ea261a3959bd7ee2a3fe78273437d351cf636#egg=PcafeaturesD3MWrapper --process-dependency-links
-RUN pip3 install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@0e8e64e3aff9a32eb24ce2db79c2a6a044e9479e#egg=SimonD3MWrapper --process-dependency-links
-RUN pip3 install -e git+https://github.com/NewKnowledge/datacleaning-d3m-wrapper.git@e35dd8a3e658f4e471828260ed1953577b03dd1f#egg=DatacleaningD3MWrapper --process-dependency-links
-RUN pip3 install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@0448cd1b75f3e9fe160ab6113b36e2fe5937a19b#egg=DukeD3MWrapper --process-dependency-links
-RUN pip3 install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@81e634b741d758ad91d1bd7bd4f14a3719e8bd50#egg=CROCd3mWrapper --process-dependency-links
-RUN pip3 install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@025a56f29b9a379b79bee46535ffd21958604c8a#egg=UNICORNd3mWrapper --process-dependency-links
-RUN pip3 install -e git+https://github.com/NewKnowledge/TimeSeries-D3M-Wrappers.git@a5fd924060910ecebc09579536741e5a7b4ad117#egg=TimeSeriesD3MWrappers --process-dependency-links
-RUN pip3 install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@08ee747242856093d93f9d692fab4fd6b7d79e2c#egg=GoatD3MWrapper --process-dependency-links
+RUN pip3 install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@903ea261a3959bd7ee2a3fe78273437d351cf636#egg=PcafeaturesD3MWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@6484e6776c3c96a60bd7ad9cad90e67c6c05a6ed#egg=SimonD3MWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/datacleaning-d3m-wrapper.git@e35dd8a3e658f4e471828260ed1953577b03dd1f#egg=DatacleaningD3MWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@1c5e5f20fced72f042581a2f9cfca41557a2d85d#egg=DukeD3MWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@86695826d2481949c55e38020be222d231962806#egg=CROCd3mWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@6c324133f932068600c4b55047b0eaf194a5d39f#egg=UNICORNd3mWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/TimeSeries-D3M-Wrappers.git@7fe689115f302e91d621f6621f241f4e396ac67c#egg=TimeSeriesD3MWrappers
+RUN pip3 install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@08ee747242856093d93f9d692fab4fd6b7d79e2c#egg=GoatD3MWrapper
 
 # ISI Primitives
 
-RUN pip3 install -e git+https://github.com/usc-isi-i2/dsbox-cleaning.git@4f5a7244aee91e92d932d1f4e1ee8872b0f5c196#egg=DSBoxCleaning --process-dependency-links
+RUN pip3 install -e git+https://github.com/usc-isi-i2/dsbox-cleaning.git@4f5a7244aee91e92d932d1f4e1ee8872b0f5c196#egg=DSBoxCleaning
 RUN pip3 install datamart

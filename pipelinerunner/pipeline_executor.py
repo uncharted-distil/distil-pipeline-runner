@@ -1,5 +1,3 @@
-#!/bin/bash
-
 """
    Copyright © 2019 Uncharted Software Inc.
 
@@ -29,8 +27,11 @@ import pipeline_pb2_grpc
 import value_pb2
 import value_pb2_grpc
 
+from d3m import runtime
 from d3m import container
 from d3m.metadata import base as metadata_base
+from d3m.metadata import pipeline as metadata_pipeline
+from ta3ta2_api import utils
 
 import frozendict
 
@@ -225,6 +226,12 @@ def _sort_pipeline_steps(pipeline: pipeline_pb2.PipelineDescription) -> List[pip
 
     return ordered_steps
 
+def _load_inputs(dataset_filenames: List[str]) -> List[container.Dataset]:
+    input_datasets = []
+    for dataset_filename in dataset_filenames:
+        input_dataset = container.Dataset.load(dataset_filename)
+        input_datasets.append(input_dataset)
+    return input_datasets
 
 def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
                      dataset_filenames: List[str],
@@ -242,6 +249,18 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     The result of the pipeline execution.
     """
 
+    # transform the pipeline to the internal d3m representation
+    pipeline_d3m = utils.decode_pipeline_description(pipeline, metadata_pipeline.Resolver())
+
+    rt = runtime.Runtime(pipeline_d3m, context=metadata_base.Context.TESTING)
+
+    # load the data
+    inputs = _load_inputs(dataset_filenames)
+
+    # call the runtime produce
+
+    return rt.produce(inputs=inputs)
+    """
     _input_table.clear()
     _output_table.clear()
 
@@ -293,6 +312,7 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     # extract the final output
     output_dataref = pipeline.outputs[0].data
     return _resolve_output(output_dataref)
+    """
 
 
 def execute_pipeline_file(pipeline_filename: str,
