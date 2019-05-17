@@ -4,9 +4,9 @@ FROM $DOCKER_REPO/distil-pipeline-runner-d3m:$VERSION
 
 # Uncharted Primitives
 
-RUN pip3 install -e git+https://github.com/uncharted-distil/distil-timeseries-loader.git@ad36f7356d6430c1dc977176bf8ac805b37b2882#egg=DistilTimeSeriesLoader --process-dependency-links
-RUN pip3 install -e git+https://github.com/uncharted-distil/distil-mi-ranking.git@7c47e32b492ef89aeac627a133b11f6699f1c22e#egg=DistilMIRanking --process-dependency-links
-RUN pip3 install -e git+https://github.com/uncharted-distil/distil-fuzzy-join.git@4e860b2d9f3aa44a90a0381677aa396d265e47f7#egg=DistilFuzzyJoin --process-dependency-links
+RUN pip3 install -e git+https://github.com/uncharted-distil/distil-timeseries-loader.git@47dc295398d8a3dcfe1ed362aad66fd53fcef1ce#egg=DistilTimeSeriesLoader
+RUN pip3 install -e git+https://github.com/uncharted-distil/distil-mi-ranking.git@db9f23c88c2280c1e9075a6308dade79e36bf02f#egg=DistilMIRanking
+RUN pip3 install -e git+https://github.com/uncharted-distil/distil-fuzzy-join.git@c99027cf71068d2f62456b0a305c8f8dd2bddda6#egg=DistilFuzzyJoin
 
 # The ta3ta2-api python package installs its own copy of the compiled protobuf files which
 # conflict with those generated for this project.  Python protobuf is supposed to allow for
