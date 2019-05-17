@@ -234,13 +234,12 @@ def _load_inputs(dataset_filenames: List[str]) -> List[container.Dataset]:
     return input_datasets
 
 
-def fit(pipeline: metadata_pipeline.Pipeline, input_dataset: container.Dataset) -> Tuple[Optional[runtime.Runtime], Optional[runtime.Result]]:
+def _fit(pipeline: metadata_pipeline.Pipeline, input_dataset: List[container.Dataset], volumes_dir: Optional[str] = None) -> Tuple[Optional[runtime.Runtime], Optional[runtime.Result]]:
     hyperparams = None
     random_seed = 0
-    volumes_dir = None
 
     fitted_runtime, _, result = runtime.fit(
-        pipeline, None, [input_dataset], hyperparams=hyperparams, random_seed=random_seed,
+        pipeline, None, input_dataset, hyperparams=hyperparams, random_seed=random_seed,
         volumes_dir=volumes_dir, context=metadata_base.Context.TESTING, runtime_environment=pipeline_run.RuntimeEnvironment()
     )
 
@@ -250,8 +249,8 @@ def fit(pipeline: metadata_pipeline.Pipeline, input_dataset: container.Dataset) 
     return fitted_runtime, result
 
 
-def produce(fitted_pipeline: runtime.Runtime, input_dataset: container.Dataset) -> container.DataFrame:
-    predictions, result = runtime.produce(fitted_pipeline, [input_dataset])
+def _produce(fitted_pipeline: runtime.Runtime, input_dataset: List[container.Dataset]) -> container.DataFrame:
+    predictions, result = runtime.produce(fitted_pipeline, input_dataset)
     if result.has_error():
         raise result.error
     return predictions
@@ -284,8 +283,8 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     # call the runtime produce
     # result = rt.produce(inputs=inputs)
 
-    fitted_pipeline, _ = fit(pipeline_d3m, inputs[0])
-    result = produce(fitted_pipeline, inputs[0])
+    fitted_pipeline, _ = _fit(pipeline_d3m, inputs, volumes_dir=static_resource_path)
+    result = _produce(fitted_pipeline, inputs)
 
     return result.values
 
