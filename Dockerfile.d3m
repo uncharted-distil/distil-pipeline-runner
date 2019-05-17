@@ -20,7 +20,7 @@ RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives
     pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api.git@dist-python#egg=ta3ta2_utils;
 
 # NK Primitives
-RUN pip3 install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@903ea261a3959bd7ee2a3fe78273437d351cf636#egg=PcafeaturesD3MWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@e61e47271324f57f04bb00e4530a0f63aa8fe9eb#egg=PcafeaturesD3MWrapper
 RUN pip3 install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@6484e6776c3c96a60bd7ad9cad90e67c6c05a6ed#egg=SimonD3MWrapper
 RUN pip3 install -e git+https://github.com/NewKnowledge/datacleaning-d3m-wrapper.git@e35dd8a3e658f4e471828260ed1953577b03dd1f#egg=DatacleaningD3MWrapper
 RUN pip3 install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@1c5e5f20fced72f042581a2f9cfca41557a2d85d#egg=DukeD3MWrapper
