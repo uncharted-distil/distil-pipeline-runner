@@ -16,7 +16,7 @@
 
 import time
 import os
-from typing import List, Dict, Set, Any, Optional
+from typing import List, Dict, Set, Any, Optional, Tuple
 from concurrent import futures
 import pprint
 import logging
@@ -30,7 +30,7 @@ import value_pb2_grpc
 from d3m import runtime
 from d3m import container
 from d3m.metadata import base as metadata_base
-from d3m.metadata import pipeline as metadata_pipeline
+from d3m.metadata import pipeline as metadata_pipeline, pipeline_run
 from ta3ta2_api import utils
 
 import frozendict
@@ -233,6 +233,30 @@ def _load_inputs(dataset_filenames: List[str]) -> List[container.Dataset]:
         input_datasets.append(input_dataset)
     return input_datasets
 
+
+def fit(pipeline: metadata_pipeline.Pipeline, input_dataset: container.Dataset) -> Tuple[Optional[runtime.Runtime], Optional[runtime.Result]]:
+    hyperparams = None
+    random_seed = 0
+    volumes_dir = None
+
+    fitted_runtime, _, result = runtime.fit(
+        pipeline, None, [input_dataset], hyperparams=hyperparams, random_seed=random_seed,
+        volumes_dir=volumes_dir, context=metadata_base.Context.TESTING, runtime_environment=pipeline_run.RuntimeEnvironment()
+    )
+
+    if result.has_error():
+        raise result.error
+
+    return fitted_runtime, result
+
+
+def produce(fitted_pipeline: runtime.Runtime, input_dataset: container.Dataset) -> container.DataFrame:
+    predictions, result = runtime.produce(fitted_pipeline, [input_dataset])
+    if result.has_error():
+        raise result.error
+    return predictions
+
+
 def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
                      dataset_filenames: List[str],
                      static_resource_path: Optional[str] = None) -> Any:
@@ -252,14 +276,19 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     # transform the pipeline to the internal d3m representation
     pipeline_d3m = utils.decode_pipeline_description(pipeline, metadata_pipeline.Resolver())
 
-    rt = runtime.Runtime(pipeline_d3m, context=metadata_base.Context.TESTING)
+    # rt = runtime.Runtime(pipeline_d3m, context=metadata_base.Context.TESTING)
 
     # load the data
     inputs = _load_inputs(dataset_filenames)
 
     # call the runtime produce
+    # result = rt.produce(inputs=inputs)
 
-    return rt.produce(inputs=inputs)
+    fitted_pipeline, _ = fit(pipeline_d3m, inputs[0])
+    result = produce(fitted_pipeline, inputs[0])
+
+    return result.values
+
     """
     _input_table.clear()
     _output_table.clear()
