@@ -22,11 +22,11 @@ $475c26dc-eb2e-43d3-acdb-159b80d9f0991.1.07d3m.primitives.digital_image_proce
 inputs
 
 steps.1.produce	
-produce"$
-output_labels"
-:
-	*objects"&
+produce"&
 target_columns"
 :
 
-*filename
+*filename"$
+output_labels"
+:
+	*objects
