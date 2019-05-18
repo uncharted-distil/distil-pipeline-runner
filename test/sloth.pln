@@ -1,7 +1,7 @@
  *
 sloth_test2$test sloth object detection pipelineB	
 input 0J
-	outputs 2steps.2.produceRå
+	outputs 1steps.1.produceRå
 â
 ¼
 $f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.05d3m.primitives.data_transformation.denormalize.Common"Denormalize datasets*@c39e3436373aed1944edbbc9b1cf24af5c71919d73bf0bb545cba0b685812df1
@@ -9,20 +9,16 @@ $f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.05d3m.primitives.data_transformation
 
 
 inputs.0	
-produceRÿ
-ü
-Ï
-$4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0>d3m.primitives.data_transformation.dataset_to_dataframe.Common"Dataset to DataFrame converter*@85b946aa6123354fe51a288c3be56aaca82e76d4071c1edc13be6f9e0e100144
-inputs
-
-steps.0.produce	
-produceRô
-ñ
+produceR”
+‘
 ­
 $77bf4b92-2faa-3e38-bb7e-804131243a7f2.0.25d3m.primitives.time_series_segmentation.cluster.Sloth"Sloth*@576297f6bb41056ede966722bb0ed0d73403752e0a80eacd85bd71e8ea930e8a
 inputs
 
-steps.1.produce	
+steps.0.produce
+outputs
+
+steps.0.produce	
 produce"
 	nclusters"
 
