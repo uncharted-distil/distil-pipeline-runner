@@ -35,12 +35,14 @@ REGRESSION = typing___cast(TaskType, 2)
 CLUSTERING = typing___cast(TaskType, 3)
 LINK_PREDICTION = typing___cast(TaskType, 4)
 VERTEX_NOMINATION = typing___cast(TaskType, 5)
-COMMUNITY_DETECTION = typing___cast(TaskType, 6)
-GRAPH_CLUSTERING = typing___cast(TaskType, 7)
+VERTEX_CLASSIFICATION = typing___cast(TaskType, 6)
+COMMUNITY_DETECTION = typing___cast(TaskType, 7)
 GRAPH_MATCHING = typing___cast(TaskType, 8)
 TIME_SERIES_FORECASTING = typing___cast(TaskType, 9)
 COLLABORATIVE_FILTERING = typing___cast(TaskType, 10)
 OBJECT_DETECTION = typing___cast(TaskType, 11)
+SEMISUPERVISED_CLASSIFICATION = typing___cast(TaskType, 12)
+SEMISUPERVISED_REGRESSION = typing___cast(TaskType, 13)
 
 class TaskSubtype(int):
     @classmethod
@@ -86,13 +88,14 @@ ROC_AUC_MICRO = typing___cast(PerformanceMetric, 8)
 ROC_AUC_MACRO = typing___cast(PerformanceMetric, 9)
 MEAN_SQUARED_ERROR = typing___cast(PerformanceMetric, 10)
 ROOT_MEAN_SQUARED_ERROR = typing___cast(PerformanceMetric, 11)
-ROOT_MEAN_SQUARED_ERROR_AVG = typing___cast(PerformanceMetric, 12)
-MEAN_ABSOLUTE_ERROR = typing___cast(PerformanceMetric, 13)
-R_SQUARED = typing___cast(PerformanceMetric, 14)
-NORMALIZED_MUTUAL_INFORMATION = typing___cast(PerformanceMetric, 15)
-JACCARD_SIMILARITY_SCORE = typing___cast(PerformanceMetric, 16)
+MEAN_ABSOLUTE_ERROR = typing___cast(PerformanceMetric, 12)
+R_SQUARED = typing___cast(PerformanceMetric, 13)
+NORMALIZED_MUTUAL_INFORMATION = typing___cast(PerformanceMetric, 14)
+JACCARD_SIMILARITY_SCORE = typing___cast(PerformanceMetric, 15)
 PRECISION_AT_TOP_K = typing___cast(PerformanceMetric, 17)
 OBJECT_DETECTION_AVERAGE_PRECISION = typing___cast(PerformanceMetric, 18)
+HAMMING_LOSS = typing___cast(PerformanceMetric, 19)
+RANK = typing___cast(PerformanceMetric, 99)
 LOSS = typing___cast(PerformanceMetric, 100)
 
 class ProblemPerformanceMetric(google___protobuf___message___Message):
@@ -111,10 +114,6 @@ class ProblemPerformanceMetric(google___protobuf___message___Message):
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
 
 class Problem(google___protobuf___message___Message):
-    id = ... # type: typing___Text
-    version = ... # type: typing___Text
-    name = ... # type: typing___Text
-    description = ... # type: typing___Text
     task_type = ... # type: TaskType
     task_subtype = ... # type: TaskSubtype
 
@@ -122,10 +121,6 @@ class Problem(google___protobuf___message___Message):
     def performance_metrics(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[ProblemPerformanceMetric]: ...
 
     def __init__(self,
-        id : typing___Optional[typing___Text] = None,
-        version : typing___Optional[typing___Text] = None,
-        name : typing___Optional[typing___Text] = None,
-        description : typing___Optional[typing___Text] = None,
         task_type : typing___Optional[TaskType] = None,
         task_subtype : typing___Optional[TaskSubtype] = None,
         performance_metrics : typing___Optional[typing___Iterable[ProblemPerformanceMetric]] = None,
@@ -154,15 +149,36 @@ class ProblemTarget(google___protobuf___message___Message):
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
 
+class ProblemPrivilegedData(google___protobuf___message___Message):
+    privileged_data_index = ... # type: int
+    resource_id = ... # type: typing___Text
+    column_index = ... # type: int
+    column_name = ... # type: typing___Text
+
+    def __init__(self,
+        privileged_data_index : typing___Optional[int] = None,
+        resource_id : typing___Optional[typing___Text] = None,
+        column_index : typing___Optional[int] = None,
+        column_name : typing___Optional[typing___Text] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> ProblemPrivilegedData: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+
 class ProblemInput(google___protobuf___message___Message):
     dataset_id = ... # type: typing___Text
 
     @property
     def targets(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[ProblemTarget]: ...
 
+    @property
+    def privileged_data(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[ProblemPrivilegedData]: ...
+
     def __init__(self,
         dataset_id : typing___Optional[typing___Text] = None,
         targets : typing___Optional[typing___Iterable[ProblemTarget]] = None,
+        privileged_data : typing___Optional[typing___Iterable[ProblemPrivilegedData]] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> ProblemInput: ...
@@ -188,6 +204,7 @@ class ProblemDescription(google___protobuf___message___Message):
     name = ... # type: typing___Text
     description = ... # type: typing___Text
     digest = ... # type: typing___Text
+    other_names = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
 
     @property
     def problem(self) -> Problem: ...
@@ -196,7 +213,7 @@ class ProblemDescription(google___protobuf___message___Message):
     def inputs(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[ProblemInput]: ...
 
     @property
-    def data_augmentation(self) -> DataAugmentation: ...
+    def data_augmentation(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[DataAugmentation]: ...
 
     def __init__(self,
         problem : typing___Optional[Problem] = None,
@@ -206,7 +223,8 @@ class ProblemDescription(google___protobuf___message___Message):
         name : typing___Optional[typing___Text] = None,
         description : typing___Optional[typing___Text] = None,
         digest : typing___Optional[typing___Text] = None,
-        data_augmentation : typing___Optional[DataAugmentation] = None,
+        data_augmentation : typing___Optional[typing___Iterable[DataAugmentation]] = None,
+        other_names : typing___Optional[typing___Iterable[typing___Text]] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> ProblemDescription: ...
