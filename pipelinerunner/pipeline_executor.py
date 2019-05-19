@@ -102,7 +102,7 @@ def execute_pipeline(pipeline: pipeline_pb2.PipelineDescription,
     fitted_pipeline, _ = _fit(pipeline_d3m, inputs, volumes_dir=static_resource_path)
     result = _produce(fitted_pipeline, inputs)
 
-    return result.values
+    return result
 
 
 def execute_pipeline_file(pipeline_filename: str,
