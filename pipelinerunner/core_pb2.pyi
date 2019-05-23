@@ -49,6 +49,7 @@ class EvaluationMethod(int):
 EVALUATION_METHOD_UNDEFINED = typing___cast(EvaluationMethod, 0)
 HOLDOUT = typing___cast(EvaluationMethod, 1)
 K_FOLD = typing___cast(EvaluationMethod, 2)
+RANKING = typing___cast(EvaluationMethod, 99)
 LEAVE_ONE_OUT = typing___cast(EvaluationMethod, 100)
 PREDICTION = typing___cast(EvaluationMethod, 101)
 TRAINING_DATA = typing___cast(EvaluationMethod, 102)
@@ -93,13 +94,10 @@ class ScoringConfiguration(google___protobuf___message___Message):
 
 class Score(google___protobuf___message___Message):
     fold = ... # type: int
-    dataset_id = ... # type: typing___Text
+    random_seed = ... # type: int
 
     @property
     def metric(self) -> ProblemPerformanceMetric: ...
-
-    @property
-    def targets(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[ProblemTarget]: ...
 
     @property
     def value(self) -> Value: ...
@@ -107,9 +105,8 @@ class Score(google___protobuf___message___Message):
     def __init__(self,
         metric : typing___Optional[ProblemPerformanceMetric] = None,
         fold : typing___Optional[int] = None,
-        targets : typing___Optional[typing___Iterable[ProblemTarget]] = None,
         value : typing___Optional[Value] = None,
-        dataset_id : typing___Optional[typing___Text] = None,
+        random_seed : typing___Optional[int] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> Score: ...
@@ -164,9 +161,10 @@ class UpdateProblemResponse(google___protobuf___message___Message):
 class SearchSolutionsRequest(google___protobuf___message___Message):
     user_agent = ... # type: typing___Text
     version = ... # type: typing___Text
-    time_bound = ... # type: float
+    time_bound_search = ... # type: float
     priority = ... # type: float
     allowed_value_types = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[ValueType]
+    time_bound_run = ... # type: float
 
     @property
     def problem(self) -> ProblemDescription: ...
@@ -180,12 +178,13 @@ class SearchSolutionsRequest(google___protobuf___message___Message):
     def __init__(self,
         user_agent : typing___Optional[typing___Text] = None,
         version : typing___Optional[typing___Text] = None,
-        time_bound : typing___Optional[float] = None,
+        time_bound_search : typing___Optional[float] = None,
         priority : typing___Optional[float] = None,
         allowed_value_types : typing___Optional[typing___Iterable[ValueType]] = None,
         problem : typing___Optional[ProblemDescription] = None,
         template : typing___Optional[PipelineDescription] = None,
         inputs : typing___Optional[typing___Iterable[Value]] = None,
+        time_bound_run : typing___Optional[float] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> SearchSolutionsRequest: ...
@@ -645,11 +644,11 @@ class GetProduceSolutionResultsResponse(google___protobuf___message___Message):
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
 
 class SolutionExportRequest(google___protobuf___message___Message):
-    fitted_solution_id = ... # type: typing___Text
+    solution_id = ... # type: typing___Text
     rank = ... # type: float
 
     def __init__(self,
-        fitted_solution_id : typing___Optional[typing___Text] = None,
+        solution_id : typing___Optional[typing___Text] = None,
         rank : typing___Optional[float] = None,
         ) -> None: ...
     @classmethod
@@ -663,6 +662,36 @@ class SolutionExportResponse(google___protobuf___message___Message):
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> SolutionExportResponse: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+
+class DataAvailableRequest(google___protobuf___message___Message):
+    user_agent = ... # type: typing___Text
+    version = ... # type: typing___Text
+    time_bound = ... # type: float
+    priority = ... # type: float
+
+    @property
+    def data(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[Value]: ...
+
+    def __init__(self,
+        user_agent : typing___Optional[typing___Text] = None,
+        version : typing___Optional[typing___Text] = None,
+        time_bound : typing___Optional[float] = None,
+        priority : typing___Optional[float] = None,
+        data : typing___Optional[typing___Iterable[Value]] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> DataAvailableRequest: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+
+class DataAvailableResponse(google___protobuf___message___Message):
+
+    def __init__(self,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> DataAvailableResponse: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
 
@@ -882,6 +911,12 @@ class Core(typing___Any, metaclass=abc___ABCMeta):
         done: typing___Optional[typing___Callable[[UpdateProblemResponse], None]],
     ) -> concurrent___futures___Future[UpdateProblemResponse]: ...
     @abc___abstractmethod
+    def DataAvailable(self,
+        rpc_controller: typing___Any,
+        request: DataAvailableRequest,
+        done: typing___Optional[typing___Callable[[DataAvailableResponse], None]],
+    ) -> concurrent___futures___Future[DataAvailableResponse]: ...
+    @abc___abstractmethod
     def ListPrimitives(self,
         rpc_controller: typing___Any,
         request: ListPrimitivesRequest,
@@ -984,6 +1019,11 @@ class Core_Stub(Core):
         request: UpdateProblemRequest,
         done: typing___Optional[typing___Callable[[UpdateProblemResponse], None]],
     ) -> concurrent___futures___Future[UpdateProblemResponse]: ...
+    def DataAvailable(self,
+        rpc_controller: typing___Any,
+        request: DataAvailableRequest,
+        done: typing___Optional[typing___Callable[[DataAvailableResponse], None]],
+    ) -> concurrent___futures___Future[DataAvailableResponse]: ...
     def ListPrimitives(self,
         rpc_controller: typing___Any,
         request: ListPrimitivesRequest,
