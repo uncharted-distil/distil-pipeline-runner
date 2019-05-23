@@ -22,11 +22,11 @@ RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives
 # NK Primitives
 RUN pip3 install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@e61e47271324f57f04bb00e4530a0f63aa8fe9eb#egg=PcafeaturesD3MWrapper
 RUN pip3 install -e git+https://github.com/NewKnowledge/simon-d3m-wrapper.git@6484e6776c3c96a60bd7ad9cad90e67c6c05a6ed#egg=SimonD3MWrapper
-RUN pip3 install -e git+https://github.com/NewKnowledge/datacleaning-d3m-wrapper.git@e35dd8a3e658f4e471828260ed1953577b03dd1f#egg=DatacleaningD3MWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/datacleaning-d3m-wrapper.git@d2666de3de1406adfad4c74f4aacaf52ceccfced#egg=DatacleaningD3MWrapper
 RUN pip3 install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@1c5e5f20fced72f042581a2f9cfca41557a2d85d#egg=DukeD3MWrapper
 RUN pip3 install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@86695826d2481949c55e38020be222d231962806#egg=CROCd3mWrapper
-RUN pip3 install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@6c324133f932068600c4b55047b0eaf194a5d39f#egg=UNICORNd3mWrapper
-RUN pip3 install -e git+https://github.com/NewKnowledge/TimeSeries-D3M-Wrappers.git@7fe689115f302e91d621f6621f241f4e396ac67c#egg=TimeSeriesD3MWrappers
+RUN pip3 install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@865e2780e67c1f34ee2621748f557078d34eb15f#egg=UNICORNd3mWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/TimeSeries-D3M-Wrappers.git@666cc64770d1ed8ab9be376036b52b2716644b4e#egg=TimeSeriesD3MWrappers
 RUN pip3 install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@08ee747242856093d93f9d692fab4fd6b7d79e2c#egg=GoatD3MWrapper
 
 # ISI Primitives
