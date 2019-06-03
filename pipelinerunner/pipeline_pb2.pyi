@@ -199,12 +199,14 @@ class StepOutput(google___protobuf___message___Message):
 class PipelineSource(google___protobuf___message___Message):
     name = ... # type: typing___Text
     contact = ... # type: typing___Text
-    pipelines = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text]
+
+    @property
+    def pipelines(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[PipelineDescription]: ...
 
     def __init__(self,
         name : typing___Optional[typing___Text] = None,
         contact : typing___Optional[typing___Text] = None,
-        pipelines : typing___Optional[typing___Iterable[typing___Text]] = None,
+        pipelines : typing___Optional[typing___Iterable[PipelineDescription]] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> PipelineSource: ...

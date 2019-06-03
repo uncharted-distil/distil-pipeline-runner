@@ -102,11 +102,15 @@ class Score(google___protobuf___message___Message):
     @property
     def value(self) -> Value: ...
 
+    @property
+    def normalized(self) -> Value: ...
+
     def __init__(self,
         metric : typing___Optional[ProblemPerformanceMetric] = None,
         fold : typing___Optional[int] = None,
         value : typing___Optional[Value] = None,
         random_seed : typing___Optional[int] = None,
+        normalized : typing___Optional[Value] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> Score: ...
@@ -165,6 +169,7 @@ class SearchSolutionsRequest(google___protobuf___message___Message):
     priority = ... # type: float
     allowed_value_types = ... # type: google___protobuf___internal___containers___RepeatedScalarFieldContainer[ValueType]
     time_bound_run = ... # type: float
+    rank_solutions_limit = ... # type: int
 
     @property
     def problem(self) -> ProblemDescription: ...
@@ -185,6 +190,7 @@ class SearchSolutionsRequest(google___protobuf___message___Message):
         template : typing___Optional[PipelineDescription] = None,
         inputs : typing___Optional[typing___Iterable[Value]] = None,
         time_bound_run : typing___Optional[float] = None,
+        rank_solutions_limit : typing___Optional[int] = None,
         ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> SearchSolutionsRequest: ...
