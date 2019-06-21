@@ -17,7 +17,7 @@ cython
 -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@08ee747242856093d93f9d692fab4fd6b7d79e2c#egg=GoatD3MWrapper --process-dependency-links
 
 # Uncharted Primitives
--e git+https://github.com/uncharted-distil/distil-timeseries-loader.git@87b17ae75f85cb96c7043fbababb6005d99dc853#egg=DistilTimeSeriesLoader --process-dependency-links
+-e git+https://github.com/uncharted-distil/distil-timeseries-loader.git@fc657d4a184a4e258ae59231f883b659dfae56e6#egg=DistilTimeSeriesLoader --process-dependency-links
 -e git+https://github.com/uncharted-distil/distil-mi-ranking.git@b4360f961099817b7c92136b08ec5c46c26921a7#egg=DistilMIRanking --process-dependency-links
 -e git+https://github.com/uncharted-distil/distil-fuzzy-join.git@4e860b2d9f3aa44a90a0381677aa396d265e47f7#egg=DistilFuzzyJoin --process-dependency-links#egg=DistilFuzzyJoin --process-dependency-links
 
