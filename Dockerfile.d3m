@@ -15,8 +15,10 @@ FROM $DOCKER_REPO/distil-pipeline-runner-env:$VERSION
 # D3M baseline packages - do this first because there are a lot of dependencies.
 # Common primitives has a lot of dependencies that aren't used, so we stop transitive resolution.  Torch is
 # the only that is required due to its use in a shared utilities function.
-RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git#egg=common_primitives --no-deps && \
-    pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api.git@dist-python#egg=ta3ta2_utils;
+RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@v0.6.0#egg=common_primitives
+# needed to satisfy dependencies fro dataset_map and column_map common primitives
+RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/tests-data@e6299dfefcdfdc309dac0dc28b9bbf3eb9193cae#egg=test_primitives\&subdirectory=primitives
+RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api.git@dist-python#egg=ta3ta2_utils
 
 # NK Primitives
 RUN pip3 install -e git+https://github.com/NewKnowledge/pcafeatures-d3m-wrapper.git@4b31ed6098236ef7392768c45e4fa2f238124d3c#egg=PcafeaturesD3MWrapper
