@@ -1,9 +1,9 @@
- *	croc_test2#test croc object detection pipelineB	
-input 0J
-	outputs 2steps.2.produceRå
+ *	croc_test2#test croc object detection pipelineB
+inputsJ
+	outputs 0steps.2.produceRå
 â
 ¼
-$f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.05d3m.primitives.data_transformation.denormalize.Common"Denormalize datasets*@c39e3436373aed1944edbbc9b1cf24af5c71919d73bf0bb545cba0b685812df1
+$f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.05d3m.primitives.data_transformation.denormalize.Common"Denormalize datasets*@6a80776d244347f0d29f4358df1cd0286c25f67e03a7e2ee517c6e853e6a9d1f
 inputs
 
 

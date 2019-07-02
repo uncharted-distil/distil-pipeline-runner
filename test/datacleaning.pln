@@ -1,6 +1,6 @@
- *data cleaning test2test data cleaning pipelineB	
-input 0J
-	outputs 1steps.1.produceR¯
+ *data cleaning test2test data cleaning pipelineB
+inputsJ
+	outputs 0steps.2.produceR¯
 ı
 œ
 $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0>d3m.primitives.data_transformation.dataset_to_dataframe.Common"Dataset to DataFrame converter*@85b946aa6123354fe51a288c3be56aaca82e76d4071c1edc13be6f9e0e100144
@@ -8,11 +8,23 @@ $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0>d3m.primitives.data_transformation
 
 
 inputs.0	
-produceRÊ
+produceR∑
+¥
+ê
+$d510cb7a-1782-4f51-b44c-58f0236e47c70.4.0@d3m.primitives.data_transformation.column_parser.DataFrameCommon"Parses strings into their types
+inputs
+
+steps.0.produce	
+produce"u
+parse_semantic_types]"[
+YW:U
+*http://schema.org/Boolean
+*http://schema.org/Integer
+*http://schema.org/FloatRÊ
 „
 ∂
 $fc6bf33a-f3e0-3496-aa47-9a40289661bc3.0.17d3m.primitives.data_cleaning.data_cleaning.Datacleaning"datacleaning*@e4fe3196b81200106c40669d72a561f7fe1d7f36a9ddb5c0d7ce87bfb59f76fd
 inputs
 
-steps.0.produce	
+steps.1.produce	
 produce

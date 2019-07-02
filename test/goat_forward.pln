@@ -1,9 +1,9 @@
- *goat_forward_test2$test goat forward geocoding pipelineB	
-input 0J
-	outputs 2steps.2.produceRå
+ *goat_forward_test2$test goat forward geocoding pipelineB
+inputsJ
+	outputs 0steps.2.produceRå
 â
 ¼
-$f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.05d3m.primitives.data_transformation.denormalize.Common"Denormalize datasets*@c39e3436373aed1944edbbc9b1cf24af5c71919d73bf0bb545cba0b685812df1
+$f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.05d3m.primitives.data_transformation.denormalize.Common"Denormalize datasets*@6a80776d244347f0d29f4358df1cd0286c25f67e03a7e2ee517c6e853e6a9d1f
 inputs
 
 
@@ -15,13 +15,13 @@ $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0>d3m.primitives.data_transformation
 inputs
 
 steps.0.produce	
-produceR—
-”
-Á
-$c7c61da3-cf57-354e-8841-6648533701061.0.5Bd3m.primitives.data_cleaning.multitable_featurization.Goat_forward"Goat.forward*@655c3b536ee2b87ec4607ba932650a0655400880de89bba2effee4a7f17df9f8
+produceRˆ
+…
+²
+$c7c61da3-cf57-354e-8841-6648533701061.0.73d3m.primitives.data_cleaning.geocoding.Goat_forward"Goat_forward*@655c3b536ee2b87ec4607ba932650a0655400880de89bba2effee4a7f17df9f8
 inputs
 
-steps.1.produce	
+steps.0.produce	
 produce"$
 target_columns"
 :

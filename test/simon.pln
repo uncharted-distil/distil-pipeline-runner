@@ -1,7 +1,7 @@
  *
-simon_test2"test simon classification pipelineB	
-input 0J)
-	outputs 1steps.1.produce_metafeaturesRø
+simon_test2"test simon classification pipelineB
+inputsJ)
+	outputs 0steps.1.produce_metafeaturesRø
 õ
 Ï
 $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0>d3m.primitives.data_transformation.dataset_to_dataframe.Common"Dataset to DataFrame converter*@85b946aa6123354fe51a288c3be56aaca82e76d4071c1edc13be6f9e0e100144
@@ -9,11 +9,13 @@ $4b42ce1e-9b98-4a25-b68e-fad13311eb650.3.0>d3m.primitives.data_transformation
 
 
 inputs.0	
-produceRì
-é
+produceR”
+‘
 ¯
 $d2fa8df2-6517-3c26-bafc-87b701c4043a1.2.17d3m.primitives.data_cleaning.column_type_profiler.Simon"simon*@44fe5bf57ddb776440d1e22ddd1cf3ffeef9a282a3899856db8741e07fd7325d
 inputs
 
 steps.0.produce
-produce_metafeatures
+produce_metafeatures"&
+statistical_classification"
+ 
