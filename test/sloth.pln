@@ -9,11 +9,14 @@ $f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e0.2.05d3m.primitives.data_transformation
 
 
 inputs.0	
-produceRô
-ñ
-­
-$77bf4b92-2faa-3e38-bb7e-804131243a7f2.0.25d3m.primitives.time_series_segmentation.cluster.Sloth"Sloth*@576297f6bb41056ede966722bb0ed0d73403752e0a80eacd85bd71e8ea930e8a
+produceR†
+ƒ
+Ÿ
+$77bf4b92-2faa-3e38-bb7e-804131243a7f2.0.3'd3m.primitives.clustering.k_means.Sloth"Sloth*@576297f6bb41056ede966722bb0ed0d73403752e0a80eacd85bd71e8ea930e8a
 inputs
+
+steps.0.produce
+outputs
 
 steps.0.produce	
 produce"
