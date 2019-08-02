@@ -18,3 +18,6 @@ DATAMART_PATH=/data/datamart
 
 # address of the docker repo
 DOCKER_REPO=docker.uncharted.software
+
+# URL for the NYU datamart
+DATAMART_URL_NYU=https://auctus.vida-nyu.org
