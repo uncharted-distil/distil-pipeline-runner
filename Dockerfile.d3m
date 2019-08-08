@@ -28,7 +28,7 @@ RUN pip3 install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@1c5
 RUN pip3 install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@86695826d2481949c55e38020be222d231962806#egg=CROCd3mWrapper
 RUN pip3 install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@865e2780e67c1f34ee2621748f557078d34eb15f#egg=UNICORNd3mWrapper
 RUN pip3 install -e git+https://github.com/NewKnowledge/TimeSeries-D3M-Wrappers.git@86b8566d3767f79562ecec3316e77247b1a39061#egg=TimeSeriesD3MWrappers
-RUN pip3 install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@08ee747242856093d93f9d692fab4fd6b7d79e2c#egg=GoatD3MWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@e489b1fa85b8c0b4a04781d16fed7aef3ed47692#egg=GoatD3MWrapper
 
 # ISI Primitives
 
