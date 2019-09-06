@@ -1,0 +1,126 @@
+{
+    "created": "2019-07-03T14:53:36.538888Z",
+    "description": "test join pipeline",
+    "digest": "2f7f12aab99d865bf1e63e7a4902de7eb29b034547756c758409f76777877fe8",
+    "id": "",
+    "inputs": [
+        {
+            "name": "input 0"
+        },
+        {
+            "name": "input 1"
+        }
+    ],
+    "name": "join_test",
+    "outputs": [
+        {
+            "data": "steps.3.produce",
+            "name": "outputs 3"
+        }
+    ],
+    "schema": "https://metadata.datadrivendiscovery.org/schemas/v0/pipeline.json",
+    "steps": [
+        {
+            "arguments": {
+                "inputs": {
+                    "data": "inputs.0",
+                    "type": "CONTAINER"
+                }
+            },
+            "outputs": [
+                {
+                    "id": "produce"
+                }
+            ],
+            "primitive": {
+                "digest": "403408c15167e7ad63817089cb91c222ce1b34d8f3ea3939b522d45ec3db0755",
+                "id": "f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e",
+                "name": "Denormalize datasets",
+                "python_path": "d3m.primitives.data_transformation.denormalize.Common",
+                "version": "0.2.0"
+            },
+            "type": "PRIMITIVE"
+        },
+        {
+            "arguments": {
+                "inputs": {
+                    "data": "inputs.1",
+                    "type": "CONTAINER"
+                }
+            },
+            "outputs": [
+                {
+                    "id": "produce"
+                }
+            ],
+            "primitive": {
+                "digest": "403408c15167e7ad63817089cb91c222ce1b34d8f3ea3939b522d45ec3db0755",
+                "id": "f31f8c1f-d1c5-43e5-a4b2-2ae4a761ef2e",
+                "name": "Denormalize datasets",
+                "python_path": "d3m.primitives.data_transformation.denormalize.Common",
+                "version": "0.2.0"
+            },
+            "type": "PRIMITIVE"
+        },
+        {
+            "arguments": {
+                "left": {
+                    "data": "steps.0.produce",
+                    "type": "CONTAINER"
+                },
+                "right": {
+                    "data": "steps.1.produce",
+                    "type": "CONTAINER"
+                }
+            },
+            "hyperparams": {
+                "accuracy": {
+                    "data": 0.800000011920929,
+                    "type": "VALUE"
+                },
+                "left_col": {
+                    "data": "Doubles",
+                    "type": "VALUE"
+                },
+                "right_col": {
+                    "data": "horsepower",
+                    "type": "VALUE"
+                }
+            },
+            "outputs": [
+                {
+                    "id": "produce"
+                }
+            ],
+            "primitive": {
+                "digest": "79d0d453bc5d45587d75b3cb5e73bfbe70420d7ffb98b8557acb18b641d07da6",
+                "id": "6c3188bf-322d-4f9b-bb91-68151bf1f17f",
+                "name": "Fuzzy Join Placeholder",
+                "python_path": "d3m.primitives.data_transformation.fuzzy_join.DistilFuzzyJoin",
+                "version": "0.2.1"
+            },
+            "type": "PRIMITIVE"
+        },
+        {
+            "arguments": {
+                "inputs": {
+                    "data": "steps.2.produce",
+                    "type": "CONTAINER"
+                }
+            },
+            "outputs": [
+                {
+                    "id": "produce"
+                }
+            ],
+            "primitive": {
+                "digest": "cffcda7f84930f2ccb644bb5a7b65319f261c4c628ba76cc08d8d6dbdeb6dd91",
+                "id": "4b42ce1e-9b98-4a25-b68e-fad13311eb65",
+                "name": "Extract a DataFrame from a Dataset",
+                "python_path": "d3m.primitives.data_transformation.dataset_to_dataframe.Common",
+                "version": "0.3.0"
+            },
+            "type": "PRIMITIVE"
+        }
+    ]
+}
