@@ -3,7 +3,7 @@ ARG DOCKER_REPO
 FROM $DOCKER_REPO/distil-pipeline-runner-d3m:$VERSION
 
 # Uncharted Primitives
-
+RUN pip3 install -e git+https://github.com/uncharted-distil/distil-primitives.git@b0ed78ec8084abf6e67549378ba409c9ed299696#egg=DistilPrimitives
 RUN pip3 install -e git+https://github.com/uncharted-distil/distil-timeseries-loader.git@0d52a475f52848707a2b6d69fb3bae58409a784d#egg=DistilTimeSeriesLoader
 RUN pip3 install -e git+https://github.com/uncharted-distil/distil-mi-ranking.git@3960299b26d52f8859917eec0cb4d8f1eaaa1c3f#egg=DistilMIRanking
 RUN pip3 install -e git+https://github.com/uncharted-distil/distil-fuzzy-join.git@d171c9dc29d699dba10c1fdd5f00db8bbdd37f7d#egg=DistilFuzzyJoin

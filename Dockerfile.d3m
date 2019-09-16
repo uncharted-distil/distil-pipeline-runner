@@ -16,6 +16,7 @@ FROM $DOCKER_REPO/distil-pipeline-runner-env:$VERSION
 # Common primitives has a lot of dependencies that aren't used, so we stop transitive resolution.  Torch is
 # the only that is required due to its use in a shared utilities function.
 RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/common-primitives.git@v0.6.0#egg=common_primitives
+RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/sklearn-wrap.git@dist#egg=sklearn_wrap
 # needed to satisfy dependencies fro dataset_map and column_map common primitives
 RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/tests-data@e6299dfefcdfdc309dac0dc28b9bbf3eb9193cae#egg=test_primitives\&subdirectory=primitives
 RUN pip3 install -e git+https://gitlab.com/datadrivendiscovery/ta3ta2-api.git@dist-python#egg=ta3ta2_utils
@@ -29,9 +30,8 @@ RUN pip3 install -e git+https://github.com/NewKnowledge/duke-d3m-wrapper.git@1c5
 RUN pip3 install -e git+https://github.com/NewKnowledge/croc-d3m-wrapper.git@86695826d2481949c55e38020be222d231962806#egg=CROCd3mWrapper
 RUN pip3 install -e git+https://github.com/NewKnowledge/unicorn-d3m-wrapper.git@865e2780e67c1f34ee2621748f557078d34eb15f#egg=UNICORNd3mWrapper
 RUN pip3 install -e git+https://github.com/NewKnowledge/TimeSeries-D3M-Wrappers.git@86b8566d3767f79562ecec3316e77247b1a39061#egg=TimeSeriesD3MWrappers
-RUN pip3 install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@e489b1fa85b8c0b4a04781d16fed7aef3ed47692#egg=GoatD3MWrapper
+RUN pip3 install -e git+https://github.com/NewKnowledge/goat-d3m-wrapper.git@8861fb294039c737cd8b6c86ec3b4e62da9a12c1#egg=GoatD3MWrapper
 
-# ISI Primitives
-
-RUN pip3 install -e git+https://github.com/usc-isi-i2/dsbox-cleaning.git@4f5a7244aee91e92d932d1f4e1ee8872b0f5c196#egg=DSBoxCleaning
-RUN pip3 install datamart
+# ISI Primitives - currently unused
+# RUN pip3 install -e git+https://github.com/usc-isi-i2/dsbox-cleaning.git@4f5a7244aee91e92d932d1f4e1ee8872b0f5c196#egg=DSBoxCleaning
+# RUN pip3 install datamart
