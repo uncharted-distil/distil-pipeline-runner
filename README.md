@@ -2,6 +2,8 @@
 
 A light weight pipeline execution engine focused on primitives used by Distil for pre-processing.
 
+**DEPRECATED as of 2019/10/22**.  This component is redundant given that D3M auto-ml systems now widely support fully specified pipeline execution and will be archived in the near future.
+
 ## Installation
 
 
